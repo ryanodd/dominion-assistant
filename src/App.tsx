@@ -1,26 +1,36 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Card } from './Card';
+import cardNames from './cardNames';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function renderCards() {
+  let cards: JSX.Element[] = [];
+  cardNames.forEach(name => cards.push(<Card cardAssetName={name}/>));
+  return cards;
 }
+
+class App extends React.Component {
+  render(): any {
+    return(
+      <div className="App">
+          <div style={styles.cardContainer}>
+            {renderCards()}
+          </div>
+      </div>
+    );
+  }
+}
+
+// You can create your style objects dynamically or share them for
+// every instance of the component.
+var styles = {
+  cardContainer: {
+    display: 'flex',
+    backgroundColor: 'red',
+    height: 30,
+    width: 30,
+  },
+};
 
 export default App;
