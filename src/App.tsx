@@ -1,8 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 import { Card } from './Card';
 import cardNames from './cardNames';
+import { Row, Col } from 'jsxstyle';
 
 function renderCards() {
   let cards: JSX.Element[] = [];
@@ -13,24 +12,14 @@ function renderCards() {
 class App extends React.Component {
   render(): any {
     return(
-      <div className="App">
-          <div style={styles.cardContainer}>
+      <Col padding={20} alignItems='stretch' backgroundColor='grey' height='100%' width='100%'>
+          <Row
+            backgroundColor='red' 
+          >
             {renderCards()}
-          </div>
-      </div>
+          </Row>
+      </Col>
     );
   }
 }
-
-// You can create your style objects dynamically or share them for
-// every instance of the component.
-var styles = {
-  cardContainer: {
-    display: 'flex',
-    backgroundColor: 'red',
-    height: 30,
-    width: 30,
-  },
-};
-
 export default App;
