@@ -7,8 +7,6 @@ interface CardProps {
 
 export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Well'}) => {  
   return (
-    <Block alignItems='stretch' justifyContent='stretch'>
-      <img src={require('./cardAssets/200px-' + cardAssetName + '.jpg')}/>
-    </Block>
+    <img height={200}  src={require('./cardAssets/200px-' + cardAssetName + '.jpg')}/>
   );
 }
