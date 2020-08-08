@@ -2,10 +2,11 @@ import React from 'react';
 import { Card } from './Card';
 import cardNames from './cardNames';
 import { Row, Col } from 'jsxstyle';
-import { CardContainer } from './CardContainer';
+import { DeckSelector } from './DeckSelector';
+import 'antd/dist/antd.css';
 
 
-class App extends React.Component {
+export default class App extends React.Component {
   render(): any {
     return(
       // The styling on this is meant to be the first point of control,
@@ -20,9 +21,8 @@ class App extends React.Component {
         overflowX='hidden'
         overflowY='scroll'
       >
-          <CardContainer/>
+          <DeckSelector/>
       </Col>
     );
   }
 }
-export default App;
