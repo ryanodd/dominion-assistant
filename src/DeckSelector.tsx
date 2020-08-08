@@ -4,9 +4,18 @@ import cardNames from './cardNames';
 import { Row, Col } from 'jsxstyle';
 import { CardContainer } from './CardContainer';
 import { AutoComplete, Divider } from 'antd';
-
+import { OptionType, LabeledValue } from 'antd/lib/select';
 
 export class DeckSelector extends React.Component {
+
+  autoCompleteOptions(): {value: string}[] {
+    let options: {value: string}[] = [];
+    cardNames.forEach(name => {
+      options.push({value: name});
+    });
+    return options;
+  }
+
   render(): any {
     return(
       <Col
@@ -14,7 +23,10 @@ export class DeckSelector extends React.Component {
         alignItems='stretch'
         backgroundColor='purple'
       >
-          <AutoComplete 
+          <AutoComplete
+            options={this.autoCompleteOptions()}
+            filterOption
+            defaultActiveFirstOption
             style={{ marginBottom: 20 }}
           />
           <CardContainer/>
