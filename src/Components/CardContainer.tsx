@@ -1,27 +1,28 @@
 import React, { FunctionComponent } from 'react';
 import { Block, Row } from 'jsxstyle';
-import cardNames from './cardNames';
+import allCardNames from '../cardNames';
 import { Card } from './Card';
 
 interface CardContainerProps {
   cardAssetName?: string,
+  cardNameList: string[],
 };
 
-export const CardContainer: FunctionComponent<CardContainerProps> = ({cardAssetName = 'Wishing_Well'}) => {  
+export const CardContainer: FunctionComponent<CardContainerProps> = ({cardNameList}) => {  
   return (
       <Row
         backgroundColor='red'
         overflowX='scroll'
         overflowY='hidden'
       >
-        {renderCards()}
+        {renderCards(cardNameList)}
       </Row>
   );
 }
 
-function renderCards() {
+function renderCards(cardNameList: string[]) {
   let cards: JSX.Element[] = [];
-  cardNames.forEach(name => cards.push(
+  cardNameList.forEach(name => cards.push(
     <Block margin={10}>
       <Card cardAssetName={name}/>
     </Block>
