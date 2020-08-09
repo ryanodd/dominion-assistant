@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from './Card';
-import cardNames from '../cardNames';
+import cardNames from '../allCardNames';
 import { Row, Col } from 'jsxstyle';
 import { DeckSelector } from './DeckSelector';
 import 'antd/dist/antd.css';

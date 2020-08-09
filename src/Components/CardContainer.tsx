@@ -1,19 +1,20 @@
 import React, { FunctionComponent } from 'react';
 import { Block, Row } from 'jsxstyle';
-import allCardNames from '../cardNames';
+import allCardNames from '../allCardNames';
 import { Card } from './Card';
 
 interface CardContainerProps {
-  cardAssetName?: string,
   cardNameList: string[],
+  style?: {}
 };
 
-export const CardContainer: FunctionComponent<CardContainerProps> = ({cardNameList}) => {  
+export const CardContainer: FunctionComponent<CardContainerProps> = ({cardNameList, style}) => {  
   return (
       <Row
         backgroundColor='red'
         overflowX='scroll'
         overflowY='hidden'
+        style={style}
       >
         {renderCards(cardNameList)}
       </Row>

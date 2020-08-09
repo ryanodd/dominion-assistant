@@ -1,15 +1,17 @@
 import React from 'react';
 import { Card } from './Card';
-import cardNames from '../cardNames';
+import cardNames from '../allCardNames';
 import { Row, Col } from 'jsxstyle';
 import { CardContainer } from './CardContainer';
-import { AutoComplete, Divider } from 'antd';
+import { AutoComplete, Divider, Button } from 'antd';
 import { OptionType, LabeledValue } from 'antd/lib/select';
+import { RequestService } from '../Services/RequestService';
 
 interface DeckSelectorProps {
   //code related to your props goes here
 }
 
+// Eventually, this should live somewhere else (along with the button that sends it off)
 interface DeckSelectorState {
   selectedCardNames: string[];
 }
@@ -35,6 +37,10 @@ export class DeckSelector extends React.Component<DeckSelectorProps, DeckSelecto
     });
   }
 
+  buttonPress = (): void => {
+    RequestService.deckTurnRequest(this.state.selectedCardNames);
+  }
+
   render(): any {
     return(
       <Col
@@ -49,7 +55,10 @@ export class DeckSelector extends React.Component<DeckSelectorProps, DeckSelecto
             onSelect={this.onSelect}
             style={{ marginBottom: 20 }}
           />
-          <CardContainer cardNameList={this.state.selectedCardNames}/>
+          <CardContainer cardNameList={this.state.selectedCardNames} style={{marginBottom: 20}}/>
+          <Button type="primary" onClick={this.buttonPress}>
+            {"SUBMIT!"}
+          </Button>
       </Col>
     );
   }
