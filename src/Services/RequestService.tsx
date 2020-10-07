@@ -22,7 +22,7 @@ export class RequestService {
 
     const config: AxiosRequestConfig = {
       method: 'post',
-      url: 'http://localhost:1993/',
+      url: 'http://localhost:3000/logParser',
       data: cardNameList
     }
 
