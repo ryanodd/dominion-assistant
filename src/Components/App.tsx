@@ -1,9 +1,8 @@
 import React from 'react';
-import { Card } from './Card';
-import cardNames from '../allCardNames';
 import { Row, Col } from 'jsxstyle';
-import { DeckSelector } from './DeckSelector';
 import 'antd/dist/antd.css';
+import { LogAnalyzer } from './LogAnalyzer';
+import { HeaderBar } from './HeaderBar';
 
 
 export default class App extends React.Component {
@@ -13,15 +12,22 @@ export default class App extends React.Component {
       // taking up the full viewport and being behind everything.
       // It's the only thing that should use vw/vh?
       <Col
-        padding={20}
-        alignItems='stretch'
         backgroundColor='grey'
         height='100vh'
         width='100vw'
         overflowX='hidden'
-        overflowY='scroll'
+        
       >
-          <DeckSelector/>
+        <HeaderBar style={{'width': '100%'}}/>
+        <Col
+          padding={20}
+          alignItems='stretch'
+          overflowY='scroll'
+          flex={1}
+        >
+          <LogAnalyzer/>
+        </Col>
+        {/* <DeckSelector/> */}
       </Col>
     );
   }
