@@ -22,13 +22,3 @@ export const PasteLogBox: FunctionComponent<CardContainerProps> = ({pasteCallbac
     </Col>
   );
 }
-
-function renderCards(cardNameList: string[]) {
-  let cards: JSX.Element[] = [];
-  cardNameList.forEach(name => cards.push(
-    <Block margin={10}>
-      <Card cardAssetName={name}/>
-    </Block>
-  ));
-  return cards;
-}

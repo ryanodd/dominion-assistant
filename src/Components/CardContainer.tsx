@@ -22,11 +22,18 @@ export const CardContainer: FunctionComponent<CardContainerProps> = ({cardNameLi
 }
 
 function renderCards(cardNameList: string[]) {
+  let cardQuantities: { [index: string]: number } = {};
+  cardNameList.forEach(name => {
+    cardQuantities[name] = (cardQuantities[name]+1) || 1
+  })
+  
   let cards: JSX.Element[] = [];
-  cardNameList.forEach(name => cards.push(
-    <Block margin={10}>
-      <Card cardAssetName={name}/>
-    </Block>
-  ));
+  for (let key in cardQuantities){
+    cards.push(
+      <Block margin={10}>
+        <Card cardAssetName={key} quantity={cardQuantities[key]}/>
+      </Block>
+    )
+  }
   return cards;
 }
