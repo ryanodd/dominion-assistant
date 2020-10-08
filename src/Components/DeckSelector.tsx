@@ -1,11 +1,8 @@
 import React from 'react';
-import { Card } from './Card';
 import cardNames from '../allCardNames';
-import { Row, Col } from 'jsxstyle';
+import { Col } from 'jsxstyle';
 import { CardContainer } from './CardContainer';
-import { AutoComplete, Divider, Button } from 'antd';
-import { OptionType, LabeledValue } from 'antd/lib/select';
-import { RequestService } from '../Services/RequestService';
+import { AutoComplete, Button } from 'antd';
 
 interface DeckSelectorProps {
   //code related to your props goes here

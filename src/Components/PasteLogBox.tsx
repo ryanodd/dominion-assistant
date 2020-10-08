@@ -1,8 +1,6 @@
 import React, { FunctionComponent, ChangeEvent } from 'react';
-import { Input, Button } from 'antd';
-import { Block, Row, Col } from 'jsxstyle';
-import allCardNames from '../allCardNames';
-import { Card } from './Card';
+import { Input } from 'antd';
+import { Col } from 'jsxstyle';
 
 const { TextArea } = Input;
 

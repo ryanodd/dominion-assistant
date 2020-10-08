@@ -1,10 +1,6 @@
 import React, { ChangeEvent } from 'react';
-import { Card } from './Card';
-import cardNames from '../allCardNames';
 import { Row, Col } from 'jsxstyle';
 import { CardContainer } from './CardContainer';
-import { AutoComplete, Divider, Button } from 'antd';
-import { OptionType, LabeledValue } from 'antd/lib/select';
 import { RequestService } from '../Services/RequestService';
 import { PasteLogBox } from './PasteLogBox';
 
@@ -30,10 +26,7 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
   }
 
   pasteCallback = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    this.setState({
-      deck1List: ['Estate', 'Estate', 'Council_Room'],
-      deck2List: ['Chapel'],
-    });
+    // start loading animation
     RequestService.logPasteRequest(event.target.value)
     .then((payload) => {
       this.setState({

@@ -1,8 +1,5 @@
 import React, { FunctionComponent } from "react";
 import { Row, Col } from "jsxstyle";
-import { Typography } from "antd";
-
-const { Title } = Typography;
 
 interface HeaderBarProps {
   style?: {}

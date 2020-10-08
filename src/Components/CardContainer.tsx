@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import { Block, Row } from 'jsxstyle';
-import allCardNames from '../allCardNames';
 import { Card } from './Card';
 
 interface CardContainerProps {

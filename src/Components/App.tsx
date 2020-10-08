@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'jsxstyle';
+import { Col } from 'jsxstyle';
 import 'antd/dist/antd.css';
 import { LogAnalyzer } from './LogAnalyzer';
 import { HeaderBar } from './HeaderBar';
