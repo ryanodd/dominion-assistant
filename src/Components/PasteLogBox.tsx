@@ -4,15 +4,18 @@ import { Block, Row, Col } from 'jsxstyle';
 import allCardNames from '../allCardNames';
 import { Card } from './Card';
 
+const { TextArea } = Input;
+
 interface CardContainerProps {
-  pasteCallback: (event: ChangeEvent<HTMLInputElement>) => void,
+  pasteCallback: (event: ChangeEvent<HTMLTextAreaElement>) => void,
   style?: {}
 };
 
 export const PasteLogBox: FunctionComponent<CardContainerProps> = ({pasteCallback, style}) => {  
   return (
     <Col style={{...style, 'backgroundColor': 'darkgreen'}}>
-      <Input
+      <TextArea
+        rows={4}
         placeholder={'Paste deck here...'}
         onChange={pasteCallback}
         style={{

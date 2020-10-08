@@ -29,13 +29,22 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
     //init state
   }
 
-  pasteCallback = (event: ChangeEvent<HTMLInputElement>) => {
+  pasteCallback = (event: ChangeEvent<HTMLTextAreaElement>) => {
     this.setState({
       deck1List: ['Estate', 'Estate', 'Council_Room'],
       deck2List: ['Chapel'],
     });
-    console.log('pasted!')
     RequestService.logPasteRequest(event.target.value)
+    .then((payload) => {
+      this.setState({
+        deck1List: payload.deck1List,
+        deck2List: payload.deck2List,
+      });
+    })
+    .catch(() => {
+      console.log("ERROR!!!!!!!!! logPasteRequest failed")
+    })
+
   }
 
   render(): any {
