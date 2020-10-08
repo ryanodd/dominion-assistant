@@ -21,7 +21,7 @@ export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Wel
           style={{
             'position': 'absolute',
             'left': 8,
-            'top': 8
+            'top': 13
           }}
         />
       }

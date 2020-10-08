@@ -13,17 +13,16 @@ interface LogAnalyzerProps {
 }
 
 interface LogAnalyzerState {
-  logStr: string;
   deck1List: string[];
   deck2List: string[];
 }
 
+// This component is super stateful
 export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerState> {
 
   constructor(props: Object) {
     super(props);
     this.state = {
-      logStr: '',
       deck1List: [],
       deck2List: [],
     }
@@ -32,11 +31,11 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
 
   pasteCallback = (event: ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      logStr: event.target.value,
       deck1List: ['Estate', 'Estate', 'Council_Room'],
       deck2List: ['Chapel'],
     });
     console.log('pasted!')
+    RequestService.logPasteRequest(event.target.value)
   }
 
   render(): any {

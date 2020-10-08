@@ -38,7 +38,7 @@ export class DeckSelector extends React.Component<DeckSelectorProps, DeckSelecto
   }
 
   buttonPress = (): void => {
-    RequestService.deckTurnRequest(this.state.selectedCardNames);
+    // do stuff
   }
 
   render(): any {

@@ -1,14 +1,12 @@
 import axios, { AxiosRequestConfig } from 'axios'
 
-export interface payload {
-  money: number,
-  buys: number,
-  gains: number[],
-  trashes: string[],
+export interface logPasteResponsePayload {
+  deck1List: string[]
+  deck2List: string[]
 };
 
-export interface deckTurnResponse {
-  turnPayload: payload
+export interface logPasteResponse {
+  payload: logPasteResponsePayload
 }
 
 // is this interface doing anything (necessary to use from the outside)?
@@ -18,12 +16,13 @@ export interface deckTurnResponse {
 
 export class RequestService {
 
-  static async deckTurnRequest(cardNameList: string[]): Promise<deckTurnResponse | any> { // This return type is a hack
+  static async logPasteRequest(gameLog: string): Promise<logPasteResponse | any> { // This return type is a hack
 
     const config: AxiosRequestConfig = {
       method: 'post',
       url: 'http://localhost:3000/logParser',
-      data: cardNameList
+      headers: {'Content-Type': 'application/json'},
+      data: {'logStr': gameLog}
     }
 
     let response = await axios(config);
