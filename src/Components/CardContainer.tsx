@@ -30,7 +30,7 @@ function renderCards(cardNameList: string[]) {
   let cards: JSX.Element[] = [];
   for (let key in cardQuantities){
     cards.push(
-      <Block margin={10}>
+      <Block key={key} margin={10}>
         <Card cardAssetName={key} quantity={cardQuantities[key]}/>
       </Block>
     )
