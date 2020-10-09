@@ -20,12 +20,12 @@ export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Wel
           quantity={quantity}
           style={{
             'position': 'absolute',
-            'left': 8,
-            'top': 13
+            'left': 6,
+            'top': 12
           }}
         />
       }
-      <img height={200}  src={require('../cardAssets/200px-' + cardAssetName.replace(' ','_') + '.jpg')} alt={cardAssetName}/>
+      <img height={160}  src={require('../cardAssets/200px-' + cardAssetName.replace(' ','_') + '.jpg')} alt={cardAssetName}/>
     </Col>
   );
 }
