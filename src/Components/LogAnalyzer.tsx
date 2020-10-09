@@ -1,31 +1,21 @@
 import React, { ChangeEvent } from 'react';
-import { Row, Col } from 'jsxstyle';
-import { CardContainer } from './CardContainer';
+import { Col } from 'jsxstyle';
 import { RequestService } from '../Services/RequestService';
 import { PasteLogBox } from './PasteLogBox';
-import { Divider } from 'antd';
+import { Divider, Tabs } from 'antd';
+import { DeckInfo } from '../types';
+import { LogAnalyzerDeckLists } from './LogAnalyzerDeckLists';
+import { LogAnalyzerDeckStats } from './LogAnalyzerDeckStats';
 
 interface LogAnalyzerProps {
   //code related to your props goes here
 }
 
-interface DeckInfo {
-  playerName: string //?
-  playerInitial: string //?
-  cardNameList: string[]
-  numCards: number
-  totalMoney: number
-  totalStops: number
-  totalDraw: number
-  totalActions: number
-  totalTerminals: number
-  totalVillages: number
-  totalBuys: number
-}
-
 interface LogAnalyzerState {
   deckInfos: DeckInfo[]
 }
+
+const { TabPane } = Tabs;
 
 // This component is super stateful
 export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerState> {
@@ -50,36 +40,6 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
     })
   }
 
-  renderDeckInfos = () => {
-    let deckInfosToRender: JSX.Element[] = []
-    this.state.deckInfos.forEach(deckInfo => {
-      deckInfosToRender.push(
-        <Row fontSize={16}>
-          {deckInfo.playerName}
-          <CardContainer
-            cardNameList={deckInfo.cardNameList}
-            style={{'backgroundColor': '#a0a0a0'}}
-          />
-        </Row>
-      )
-    })
-    this.state.deckInfos.forEach(deckInfo => {
-      deckInfosToRender.push(
-        <Row fontSize={16}>
-          {'# Cards - ' + deckInfo.numCards}
-          {'Total Money - ' + deckInfo.totalMoney}
-          {'Total Stops - ' + deckInfo.totalStops}
-          {'Total Draw - ' + deckInfo.totalDraw}
-          {'Total Actions - ' + deckInfo.totalActions}
-          {'Total Terminals - ' + deckInfo.totalTerminals}
-          {'Total Villages - ' + deckInfo.totalVillages}
-          {'Total Buys - ' + deckInfo.totalBuys}
-        </Row>
-      )
-    })
-    return deckInfosToRender
-  }
-
   render(): any {
     return(
       <Col
@@ -91,8 +51,16 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
         <PasteLogBox
           pasteCallback={this.pasteCallback}
         />
+        <Tabs type="card">
+          <TabPane tab="Decklists" key="1">
+            <LogAnalyzerDeckLists deckInfos={this.state.deckInfos} />
+          </TabPane>
+          <TabPane tab="Deck Stats" key="2">
+            <LogAnalyzerDeckStats deckInfos={this.state.deckInfos}/>
+          </TabPane>
+        </Tabs>
         <Divider/>
-        {this.renderDeckInfos()}
+        
       </Col>
     );
   }
