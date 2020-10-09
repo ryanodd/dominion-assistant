@@ -17,8 +17,10 @@ interface DeckInfo {
   totalMoney: number
   totalStops: number
   totalDraw: number
+  totalActions: number
   totalTerminals: number
   totalVillages: number
+  totalBuys: number
 }
 
 interface LogAnalyzerState {
@@ -49,15 +51,32 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
   }
 
   renderDeckInfos = () => {
-    deckInfosToRender = []
-    deckInfosToRender += 
-      <Row fontSize={16}>
-      {'Deck 2'}
-      <CardContainer
-        cardNameList={this.state.deck2List}
-        style={{'backgroundColor': '#a0a0a0'}}
-      />
-      </Row>
+    let deckInfosToRender: JSX.Element[] = []
+    this.state.deckInfos.forEach(deckInfo => {
+      deckInfosToRender.push(
+        <Row fontSize={16}>
+          {deckInfo.playerName}
+          <CardContainer
+            cardNameList={deckInfo.cardNameList}
+            style={{'backgroundColor': '#a0a0a0'}}
+          />
+        </Row>
+      )
+    })
+    this.state.deckInfos.forEach(deckInfo => {
+      deckInfosToRender.push(
+        <Row fontSize={16}>
+          {'# Cards - ' + deckInfo.numCards}
+          {'Total Money - ' + deckInfo.totalMoney}
+          {'Total Stops - ' + deckInfo.totalStops}
+          {'Total Draw - ' + deckInfo.totalDraw}
+          {'Total Actions - ' + deckInfo.totalActions}
+          {'Total Terminals - ' + deckInfo.totalTerminals}
+          {'Total Villages - ' + deckInfo.totalVillages}
+          {'Total Buys - ' + deckInfo.totalBuys}
+        </Row>
+      )
+    })
     return deckInfosToRender
   }
 
