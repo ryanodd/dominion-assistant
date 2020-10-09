@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Row, Col } from "jsxstyle";
 import { DeckInfo } from "../types";
-import { Statistic, Tooltip } from "antd";
+import { Card, Statistic, Tooltip } from "antd";
 
 interface LogAnalyzerDeckStatsProps {
   deckInfos: DeckInfo[]
@@ -13,23 +13,76 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
   deckInfos.forEach(deckInfo => {
     deckStatsToRender.push(
       <Row fontSize={16}>
-        <Tooltip title="prompt text">
-          <Statistic
-            title="Active"
-            value={11.28}
-            precision={2}
-            valueStyle={{ color: '#3f8600' }}
-            suffix="%"
-          />
-        </Tooltip>
-        {'# Cards - ' + deckInfo.numCards}
-        {'Total Money - ' + deckInfo.totalMoney}
-        {'Total Stops - ' + deckInfo.totalStops}
-        {'Total Draw - ' + deckInfo.totalDraw}
-        {'Total Actions - ' + deckInfo.totalActions}
-        {'Total Terminals - ' + deckInfo.totalTerminals}
-        {'Total Villages - ' + deckInfo.totalVillages}
-        {'Total Buys - ' + deckInfo.totalBuys}
+        <Card>
+          <Row>
+            <Statistic
+              title="Cards"
+              value={deckInfo.numCards}
+              //valueStyle={{ color: '#3f8600' }}
+            />
+            <Statistic
+              title="Draw"
+              value={deckInfo.totalDraw}
+              //valueStyle={{ color: '#3f8600' }}
+            />
+            <Tooltip title="Cards that don't draw more cards.">
+              <Statistic
+                title="Stop Cards"
+                value={deckInfo.totalStops}
+              />
+            </Tooltip>
+            <Tooltip title="Every +Card above 1.">
+              <Statistic
+                title="Extra Draw"
+                value={deckInfo.totalExtraDraw}
+              />
+            </Tooltip>
+          </Row>
+        </Card>
+        <Card>
+          <Row>
+            <Statistic
+              title="Actions"
+              value={deckInfo.totalActions}
+            />
+            <Tooltip title="Action cards which do not give extra actions.">
+              <Statistic
+                title="Terminals"
+                value={deckInfo.totalStops}
+              />
+            </Tooltip>
+            <Tooltip title="Every +Action above 1.">
+              <Statistic
+                title="Extra Actions"
+                value={deckInfo.totalExtraActions}
+              />
+            </Tooltip>
+          </Row>
+        </Card>
+        <Card>
+          <Row>
+            <Statistic
+              title="Money"
+              value={deckInfo.totalMoney}
+            />
+            <Tooltip title="Money divided by cards.">
+              <Statistic
+                title="Money Density"
+                value={deckInfo.totalMoney / deckInfo.numCards}
+              />
+            </Tooltip>
+            <Tooltip title="Money divided by effective cards (stop cards - extra draw).">
+              <Statistic
+                title="Effective Money Density"
+                value={deckInfo.totalMoney / Math.max(1, deckInfo.totalStops - deckInfo.totalExtraDraw)}
+              />
+            </Tooltip>
+            <Statistic
+              title="Buys"
+              value={deckInfo.totalBuys}
+            />
+          </Row>
+        </Card>
       </Row>
     )
   })

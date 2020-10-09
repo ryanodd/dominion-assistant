@@ -3,11 +3,13 @@ export interface DeckInfo {
   playerInitial: string //?
   cardNameList: string[]
   numCards: number
+
   totalMoney: number
   totalStops: number
   totalDraw: number
+  totalExtraDraw: number
   totalActions: number
   totalTerminals: number
-  totalVillages: number
+  totalExtraActions: number
   totalBuys: number
 }
