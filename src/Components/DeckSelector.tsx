@@ -1,5 +1,5 @@
 import React from 'react';
-import cardNames from '../cardDict';
+import cardNames from '../allCardNames';
 import { Col } from 'jsxstyle';
 import { CardContainer } from './CardContainer';
 import { AutoComplete, Button } from 'antd';
