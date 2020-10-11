@@ -11,7 +11,7 @@ export const HeaderBar: FunctionComponent<HeaderBarProps> = ({style}) => {
         style={{
           ...style, 
           'backgroundColor': '#202020',
-          'padding': 16,
+          'padding': 10,
         }}
       >
         <Col
