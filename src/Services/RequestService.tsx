@@ -20,7 +20,7 @@ export class RequestService {
 
     const config: AxiosRequestConfig = {
       method: 'post',
-      url: 'http://localhost:3000/logParser',
+      url: 'https://councilroombackend.com:3993/logParser',
       headers: {'Content-Type': 'application/json'},
       data: {'logStr': gameLog}
     }
