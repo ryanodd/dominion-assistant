@@ -15,7 +15,7 @@ export class RequestService {
 
     const config: AxiosRequestConfig = {
       method: 'post',
-      url: 'https://councilroombackend.herokuapp.com:3993/logParser',
+      url: 'https://councilroombackend.herokuapp.com/logParser',
       headers: {'Content-Type': 'application/json'},
       data: {'logStr': gameLog}
     }
