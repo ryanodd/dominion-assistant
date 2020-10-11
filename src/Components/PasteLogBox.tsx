@@ -14,7 +14,7 @@ export const PasteLogBox: FunctionComponent<CardContainerProps> = ({pasteCallbac
     <Col style={{...style, 'backgroundColor': 'darkgreen'}}>
       <TextArea
         rows={4}
-        placeholder={'Paste deck here...'}
+        placeholder={'Paste game log here...'}
         onChange={pasteCallback}
         style={{
           'width': '100%'
