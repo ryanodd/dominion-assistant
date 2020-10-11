@@ -9,18 +9,13 @@ export interface logPasteResponse {
   payload: logPasteResponsePayload
 }
 
-// is this interface doing anything (necessary to use from the outside)?
-// interface RequestServiceInterface {
-//   deckTurnRequest(cardNameList: string[]): Promise<deckTurnResponse | any>
-// }
-
 export class RequestService {
 
   static async logPasteRequest(gameLog: string): Promise<logPasteResponse | any> { // This return type is a hack
 
     const config: AxiosRequestConfig = {
       method: 'post',
-      url: 'https://councilroombackend.com:3993/logParser',
+      url: 'https://councilroombackend.herokuapp.com:3993/logParser',
       headers: {'Content-Type': 'application/json'},
       data: {'logStr': gameLog}
     }
