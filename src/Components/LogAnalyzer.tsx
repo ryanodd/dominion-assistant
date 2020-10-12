@@ -4,7 +4,6 @@ import { RequestService } from '../Services/RequestService';
 import { PasteLogBox } from './PasteLogBox';
 import { Divider, Tabs } from 'antd';
 import { DeckInfo } from '../types';
-import { LogAnalyzerDeckLists } from './LogAnalyzerDeckLists';
 import { LogAnalyzerDeckStats } from './LogAnalyzerDeckStats';
 
 interface LogAnalyzerProps {
@@ -52,9 +51,6 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
           pasteCallback={this.pasteCallback}
         />
         <Tabs type="card">
-          <TabPane tab="Decklists" key="1">
-            <LogAnalyzerDeckLists deckInfos={this.state.deckInfos} />
-          </TabPane>
           <TabPane tab="Deck Stats" key="2">
             <LogAnalyzerDeckStats deckInfos={this.state.deckInfos}/>
           </TabPane>
