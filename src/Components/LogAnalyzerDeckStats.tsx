@@ -75,21 +75,43 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
     
     let deckStatPanels: JSX.Element[] = []
     deckStatPanelData.forEach((panelData, j) => {
+      let marginRightAmount = j === (deckStatPanelData.length - 1) ? 0 : 10
       deckStatPanels.push(
-        <DeckStatPanel key={j}
+        <DeckStatPanel
+          key={j}
           stats={panelData}
+          style={{marginRight: marginRightAmount}}
         />
       )
     })
     playerDeckStats.push(
-      <Col key={i}>
-        <Row fontSize={16}>
-          {deckInfo.playerName}
+      <Col
+        key={i}
+        marginTop={20}
+      >
+        <Row
+          fontSize={18}
+          fontWeight={700}
+        >
+        {deckInfo.playerName}
+        </Row>
+        <Row
+          marginTop={10}
+          width='100%'
+          flexWrap='wrap'
+        >
           {deckStatPanels}
         </Row>
         <CardContainer
           cardNameList={deckInfo.cardNameList}
-          style={{...style, 'backgroundColor': '#a0a0a0'}}
+          style={{
+            'backgroundColor': 'white',
+            'marginTop': 10 
+          }}
+        />
+        <Row // Test row. Why does it fill the width of the column?
+          backgroundColor='red'
+          height={10}
         />
       </Col>
     )

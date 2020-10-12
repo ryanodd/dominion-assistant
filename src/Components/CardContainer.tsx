@@ -10,7 +10,6 @@ interface CardContainerProps {
 export const CardContainer: FunctionComponent<CardContainerProps> = ({cardNameList, style}) => {  
   return (
       <Row
-        backgroundColor='red'
         overflowX='scroll'
         overflowY='hidden'
         style={style}
@@ -29,7 +28,7 @@ function renderCards(cardNameList: string[]) {
   let cards: JSX.Element[] = [];
   for (let key in cardQuantities){
     cards.push(
-      <Block key={key} margin={10}>
+      <Block key={key} margin={4}>
         <Card cardAssetName={key} quantity={cardQuantities[key]}/>
       </Block>
     )

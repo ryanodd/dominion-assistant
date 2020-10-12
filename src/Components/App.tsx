@@ -12,7 +12,7 @@ export default class App extends React.Component {
       // taking up the full viewport and being behind everything.
       // It's the only thing that should use vw/vh?
       <Col
-        backgroundColor='#e0a060'
+        backgroundColor='#e0c090'
         height='100vh'
         width='100vw'
         overflowX='hidden'

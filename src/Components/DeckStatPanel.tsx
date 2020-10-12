@@ -11,11 +11,13 @@ export interface DeckStat {
 
 interface DeckStatPanelProps {
   stats: DeckStat[]
+  style?: {}
 };
 
-export const DeckStatPanel: FunctionComponent<DeckStatPanelProps> = ({stats}) => {  
+export const DeckStatPanel: FunctionComponent<DeckStatPanelProps> = ({stats, style}) => {  
   let elementsToRender: JSX.Element[] = []
   stats.forEach((stat, i) => {
+    let marginLeftAmount = i === 0 ? 0 : 30 // or try vertical line?
     elementsToRender.push(
       stat.tooltip ? 
       <Tooltip
@@ -26,6 +28,7 @@ export const DeckStatPanel: FunctionComponent<DeckStatPanelProps> = ({stats}) =>
           title={stat.title}
           value={stat.value}
           valueStyle={stat.valueStyle}
+          style={{marginLeft: marginLeftAmount}}
         />
       </Tooltip>
       :
@@ -34,12 +37,13 @@ export const DeckStatPanel: FunctionComponent<DeckStatPanelProps> = ({stats}) =>
         title={stat.title}
         value={stat.value}
         valueStyle={stat.valueStyle}
+        style={{marginLeft: marginLeftAmount}}
       /> 
     )
   })
   return (
-    <Card>
-      <Row>
+    <Card style={style}>
+      <Row justifyContent='space-between'>
         {elementsToRender}
       </Row>
     </Card>

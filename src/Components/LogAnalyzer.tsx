@@ -45,16 +45,16 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
         padding={20}
         borderRadius={6}
         alignItems='stretch'
-        style={{'backgroundColor': '#c0c0c0'}}
+        style={{'backgroundColor': '#e0e0e0'}}
       >
         <PasteLogBox
           pasteCallback={this.pasteCallback}
         />
-        <Tabs type="card">
-          <TabPane tab="Deck Stats" key="2">
+        {/* <Tabs type="card">
+          <TabPane tab="Deck Stats" key="1"> */}
             <LogAnalyzerDeckStats deckInfos={this.state.deckInfos}/>
-          </TabPane>
-        </Tabs>
+          {/* </TabPane>
+        </Tabs> */}
         <Divider/>
         
       </Col>

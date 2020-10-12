@@ -18,7 +18,7 @@ export const QuantityBadge: FunctionComponent<QuantityBadgeProps> = ({quantity, 
       style={style}
     >
       <Row
-        color='black'
+        color='white'
         fontWeight={700}
         paddingBottom={3} // Font Compensation
       >
