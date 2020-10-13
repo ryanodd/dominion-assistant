@@ -15,7 +15,7 @@ export class RequestService {
     console.log(process.env)
     const config: AxiosRequestConfig = {
       method: 'post',
-      url: process.env.IS_PROD ? 'https://councilroombackend.herokuapp.com/logParser' : 'http://localhost:3993/logParser',
+      url: process.env.REACT_APP_IS_PROD ? 'https://councilroombackend.herokuapp.com/logParser' : 'http://localhost:3993/logParser',
       headers: {'Content-Type': 'application/json'},
       data: {'logStr': gameLog}
     }
