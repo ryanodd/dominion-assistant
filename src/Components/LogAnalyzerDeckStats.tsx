@@ -20,55 +20,65 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
         },
         {
           title: "Draw",
-          value: deckInfo.totalDraw
+          value: deckInfo.totalDraw.value,
+          messages: deckInfo.totalDraw.messages
         },
         {
           title: "Stop Cards",
-          value: deckInfo.totalStops,
+          value: deckInfo.totalStops.value,
           tooltip: "Cards that don't draw more cards.",
+          messages: deckInfo.totalStops.messages,
           valueStyle: { color: '#3f8600' }
         },
         {
           title: "Extra Draw",
-          value: deckInfo.totalExtraDraw,
-          tooltip: "Every +Card above 1."
-        }
-      ],
-      [
-        {
-          title: "Buys",
-          value: deckInfo.totalBuys
-        },
-        {
-          title: "Money",
-          value: deckInfo.totalMoney
-        },
-        {
-          title: "Money Density",
-          value: deckInfo.totalMoney / deckInfo.numCards,
-          tooltip: "Money divided by cards."
-        },
-        {
-          title: "Effective Money Density",
-          value: deckInfo.totalMoney / Math.max(1, deckInfo.totalStops - deckInfo.totalExtraDraw),
-          tooltip: "Money divided by effective cards (stop cards - extra draw).",
+          value: deckInfo.totalExtraDraw.value,
+          tooltip: "Every +Card above 1.",
+          messages: deckInfo.totalExtraDraw.messages
         }
       ],
       [
         {
           title: "Actions",
-          value: deckInfo.totalActions
+          value: deckInfo.totalActions.value,
+          messages: deckInfo.totalActions.messages
         },
         {
           title: "Terminals",
-          value: deckInfo.totalTerminals,
+          value: deckInfo.totalTerminals.value,
           tooltip: "Action cards which do not give extra actions.",
+          messages: deckInfo.totalTerminals.messages,
           valueStyle: { color: '#3f8600' }
         },
         {
           title: "Extra Actions",
-          value: deckInfo.totalExtraActions,
+          value: deckInfo.totalExtraActions.value,
+          messages: deckInfo.totalExtraActions.messages,
           tooltip: "Every +Action above 1.",
+        }
+      ],
+      [
+        {
+          title: "Buys",
+          value: deckInfo.totalBuys.value,
+          messages: deckInfo.totalBuys.messages
+        },
+        {
+          title: "Money",
+          value: deckInfo.totalMoney.value,
+          messages: deckInfo.totalMoney.messages
+        },
+        {
+          title: "Money Density",
+          value: deckInfo.totalMoney.value / deckInfo.numCards,
+          tooltip: "Money divided by cards.",
+          messages: deckInfo.totalMoney.messages
+        },
+        {
+          title: "Effective Money Density",
+          value: deckInfo.totalMoney.value / Math.max(1, deckInfo.totalStops.value - deckInfo.totalExtraDraw.value),
+          tooltip: "Money divided by effective cards (stop cards - extra draw).",
+          messages: deckInfo.totalMoney.messages.concat(deckInfo.totalStops.messages.concat(deckInfo.totalExtraDraw.messages))
         }
       ]
     ]
@@ -109,10 +119,10 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
             'marginTop': 10 
           }}
         />
-        <Row // Test row. Why does it fill the width of the column?
+        {/* <Row // Test row. Why does it fill the width of the column?
           backgroundColor='red'
           height={10}
-        />
+        /> */}
       </Col>
     )
   })

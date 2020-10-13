@@ -55,8 +55,6 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
             <LogAnalyzerDeckStats deckInfos={this.state.deckInfos}/>
           {/* </TabPane>
         </Tabs> */}
-        <Divider/>
-        
       </Col>
     );
   }

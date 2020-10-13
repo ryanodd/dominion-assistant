@@ -6,6 +6,7 @@ export interface DeckStat {
   title: string
   value?: number | string
   tooltip?: string
+  messages?: string[]
   valueStyle?: {}
 }
 
@@ -17,11 +18,17 @@ interface DeckStatPanelProps {
 export const DeckStatPanel: FunctionComponent<DeckStatPanelProps> = ({stats, style}) => {  
   let elementsToRender: JSX.Element[] = []
   stats.forEach((stat, i) => {
+    let tooltipMessage = stat.tooltip
+    if (stat.messages) {
+      stat.messages.forEach(message => {
+        tooltipMessage = tooltipMessage ? tooltipMessage + '\n' + message : message
+      })
+    }
     let marginLeftAmount = i === 0 ? 0 : 30 // or try vertical line?
     elementsToRender.push(
-      stat.tooltip ? 
+      tooltipMessage ? 
       <Tooltip
-        title={stat.tooltip}
+        title={tooltipMessage}
         key={i}
       >
         <Statistic
