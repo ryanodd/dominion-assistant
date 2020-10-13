@@ -16,25 +16,25 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
       [
         {
           title: "Cards",
-          value: deckInfo.numCards
+          value: deckInfo.numCards.value,
+          messages: deckInfo.numCards.messages
         },
         {
           title: "Draw",
-          value: deckInfo.totalDraw.value,
-          messages: deckInfo.totalDraw.messages
+          value: deckInfo.totalDraws.value,
+          messages: deckInfo.totalDraws.messages
         },
         {
           title: "Stop Cards",
           value: deckInfo.totalStops.value,
           tooltip: "Cards that don't draw more cards.",
-          messages: deckInfo.totalStops.messages,
-          valueStyle: { color: '#3f8600' }
+          messages: deckInfo.totalStops.messages
         },
         {
           title: "Extra Draw",
-          value: deckInfo.totalExtraDraw.value,
+          value: deckInfo.totalExtraDraws.value,
           tooltip: "Every +Card above 1.",
-          messages: deckInfo.totalExtraDraw.messages
+          messages: deckInfo.totalExtraDraws.messages
         }
       ],
       [
@@ -48,7 +48,7 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
           value: deckInfo.totalTerminals.value,
           tooltip: "Action cards which do not give extra actions.",
           messages: deckInfo.totalTerminals.messages,
-          valueStyle: { color: '#3f8600' }
+          // valueStyle: { color: '#d06060' }
         },
         {
           title: "Extra Actions",
@@ -70,15 +70,17 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
         },
         {
           title: "Money Density",
-          value: deckInfo.totalMoney.value / deckInfo.numCards,
+          value: deckInfo.totalMoney.value / deckInfo.numCards.value,
           tooltip: "Money divided by cards.",
-          messages: deckInfo.totalMoney.messages
+          messages: deckInfo.totalMoney.messages.concat(deckInfo.numCards.messages),
+          precision: 2
         },
         {
           title: "Effective Money Density",
-          value: deckInfo.totalMoney.value / Math.max(1, deckInfo.totalStops.value - deckInfo.totalExtraDraw.value),
-          tooltip: "Money divided by effective cards (stop cards - extra draw).",
-          messages: deckInfo.totalMoney.messages.concat(deckInfo.totalStops.messages.concat(deckInfo.totalExtraDraw.messages))
+          value: deckInfo.totalMoney.value / Math.max(1, deckInfo.totalStops.value - deckInfo.totalExtraDraws.value),
+          tooltip: "Money divided by effective cards (stop cards - extra draws).",
+          messages: deckInfo.totalMoney.messages.concat(deckInfo.totalStops.messages.concat(deckInfo.totalExtraDraws.messages)),
+          precision: 2
         }
       ]
     ]

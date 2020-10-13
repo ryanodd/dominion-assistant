@@ -7,12 +7,12 @@ export interface DeckInfo {
   playerName: string //?
   playerInitial: string //?
   cardNameList: string[]
-  numCards: number
 
+  numCards: DeckInfoSubjectiveField
   totalMoney: DeckInfoSubjectiveField
   totalStops: DeckInfoSubjectiveField
-  totalDraw: DeckInfoSubjectiveField
-  totalExtraDraw: DeckInfoSubjectiveField
+  totalDraws: DeckInfoSubjectiveField
+  totalExtraDraws: DeckInfoSubjectiveField
   totalActions: DeckInfoSubjectiveField
   totalTerminals: DeckInfoSubjectiveField
   totalExtraActions: DeckInfoSubjectiveField

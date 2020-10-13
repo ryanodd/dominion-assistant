@@ -1,12 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { Row } from 'jsxstyle';
 import { Card, Statistic, Tooltip } from 'antd';
+import { QuestionCircleTwoTone } from '@ant-design/icons'
 
 export interface DeckStat {
   title: string
   value?: number | string
   tooltip?: string
   messages?: string[]
+  precision?: number
   valueStyle?: {}
 }
 
@@ -35,7 +37,9 @@ export const DeckStatPanel: FunctionComponent<DeckStatPanelProps> = ({stats, sty
           title={stat.title}
           value={stat.value}
           valueStyle={stat.valueStyle}
-          style={{marginLeft: marginLeftAmount}}
+          precision={stat.precision}
+          style={{...style, marginLeft: marginLeftAmount}}
+          suffix={stat.messages?.length ? <QuestionCircleTwoTone twoToneColor='f08040' style={{'paddingBottom': 3}}/> : null}
         />
       </Tooltip>
       :
@@ -44,7 +48,8 @@ export const DeckStatPanel: FunctionComponent<DeckStatPanelProps> = ({stats, sty
         title={stat.title}
         value={stat.value}
         valueStyle={stat.valueStyle}
-        style={{marginLeft: marginLeftAmount}}
+        precision={stat.precision}
+        style={{...style, marginLeft: marginLeftAmount}}
       /> 
     )
   })
