@@ -12,7 +12,7 @@ export interface logPasteResponse {
 export class RequestService {
 
   static async logPasteRequest(gameLog: string): Promise<logPasteResponse | any> { // This return type is a hack
-
+    console.log(process.env)
     const config: AxiosRequestConfig = {
       method: 'post',
       url: process.env.IS_PROD ? 'https://councilroombackend.herokuapp.com/logParser' : 'http://localhost:3993/logParser',
