@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Col, Row } from 'jsxstyle';
-import { Card, Popover, Statistic, Tooltip } from 'antd';
-import { QuestionCircleTwoTone } from '@ant-design/icons'
+import { Card, Popover, Statistic } from 'antd';
+import { ExclamationCircleTwoTone } from '@ant-design/icons'
 
 export interface DeckStat {
   title: string
@@ -20,20 +20,32 @@ interface DeckStatPanelProps {
 export const DeckStatPanel: FunctionComponent<DeckStatPanelProps> = ({stats, style}) => {  
   let elementsToRender: JSX.Element[] = []
   stats.forEach((stat, i) => {
-    let stringsToDisplayInTooltip = stat.tooltip ? [stat.tooltip] : []
-    if (stat.messages){
-      stringsToDisplayInTooltip = stringsToDisplayInTooltip.concat(stat.messages)
-    }
+
     let tooltipLineElements: JSX.Element[] = []
-    stringsToDisplayInTooltip.forEach(s => {
+    if (stat.tooltip){
       tooltipLineElements.push(
         <Row
-          fontSize={14}
-        >
-          {s}
-        </Row>
+        fontSize={16}
+        fontWeight={700}
+        alignItems='center'
+      >
+        {stat.tooltip}
+      </Row>
       )
-    })
+    }
+    if (stat.messages){
+      stat.messages.forEach(s => {
+        tooltipLineElements.push(
+          <Row
+            fontSize={14}
+            alignItems='center'
+          >
+            <ExclamationCircleTwoTone twoToneColor='#f07030' style={{marginRight: 4}}/>
+            {s}
+          </Row>
+        )
+      })
+    }
     let tooltipElement = (
       <Col
         fontSize={14}
@@ -41,10 +53,10 @@ export const DeckStatPanel: FunctionComponent<DeckStatPanelProps> = ({stats, sty
         {tooltipLineElements}
       </Col>
     )
-    //console.log(tooltipMessage)
+
     let marginLeftAmount = i === 0 ? 0 : 30 // or try vertical line?
     elementsToRender.push(
-      stringsToDisplayInTooltip.length ? 
+      stat.messages?.length || stat.tooltip ? 
       <Popover
         content={tooltipElement}
         key={i}
@@ -55,7 +67,7 @@ export const DeckStatPanel: FunctionComponent<DeckStatPanelProps> = ({stats, sty
           valueStyle={stat.valueStyle}
           precision={stat.precision}
           style={{...style, marginLeft: marginLeftAmount}}
-          suffix={stat.messages?.length ? <QuestionCircleTwoTone twoToneColor='#f08040'/> : null}
+          suffix={stat.messages?.length ? <ExclamationCircleTwoTone twoToneColor='#f07030' style={{fontSize: 20}}/> : null}
         />
       </Popover>
       :
