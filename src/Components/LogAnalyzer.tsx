@@ -2,8 +2,8 @@ import React, { ChangeEvent } from 'react';
 import { Col } from 'jsxstyle';
 import { RequestService } from '../Services/RequestService';
 import { PasteLogBox } from './PasteLogBox';
-import { Divider, Tabs } from 'antd';
-import { DeckInfo } from '../types';
+import { Tabs } from 'antd';
+import { DeckReport } from '../types';
 import { LogAnalyzerDeckStats } from './LogAnalyzerDeckStats';
 
 interface LogAnalyzerProps {
@@ -11,7 +11,7 @@ interface LogAnalyzerProps {
 }
 
 interface LogAnalyzerState {
-  deckInfos: DeckInfo[]
+  deckReports: DeckReport[]
 }
 
 const { TabPane } = Tabs;
@@ -22,7 +22,7 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
   constructor(props: Object) {
     super(props);
     this.state = {
-      deckInfos: [],
+      deckReports: [],
     }
   }
 
@@ -30,8 +30,9 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
     // TODO: start loading animation
     RequestService.logPasteRequest(event.target.value)
     .then((payload) => {
+      console.log(payload)
       this.setState({
-        deckInfos: payload.deckInfos,
+        deckReports: payload.deckReports,
       });
     })
     .catch(() => {
@@ -52,7 +53,7 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
         />
         {/* <Tabs type="card">
           <TabPane tab="Deck Stats" key="1"> */}
-            <LogAnalyzerDeckStats deckInfos={this.state.deckInfos}/>
+            <LogAnalyzerDeckStats deckReports={this.state.deckReports}/>
           {/* </TabPane>
         </Tabs> */}
       </Col>

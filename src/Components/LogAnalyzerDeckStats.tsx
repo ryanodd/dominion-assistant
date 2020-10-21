@@ -1,85 +1,77 @@
 import React, { FunctionComponent } from "react";
 import { Row, Col } from "jsxstyle";
-import { DeckInfo } from "../types";
+import { DeckReport } from "../types";
 import { CardContainer } from "./CardContainer";
 import { DeckStat, DeckStatPanel } from "./DeckStatPanel";
 
 interface LogAnalyzerDeckStatsProps {
-  deckInfos: DeckInfo[]
+  deckReports: DeckReport[]
   style?: {}
 };
 
-export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> = ({deckInfos, style}) => {  
+export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> = ({deckReports, style}) => {  
   let playerDeckStats: JSX.Element[] = []
-  deckInfos.forEach((deckInfo, i) => {
+  
+  deckReports.forEach((deckReport, i) => {
     const deckStatPanelData: DeckStat[][] = [
       [
         {
           title: "Cards",
-          value: deckInfo.numCards.value,
-          messages: deckInfo.numCards.messages
+          fieldName: "card"
         },
         {
           title: "Draw",
-          value: deckInfo.totalDraws.value,
-          messages: deckInfo.totalDraws.messages
+          fieldName: "card"
         },
         {
           title: "Stop Cards",
-          value: deckInfo.totalStops.value,
-          tooltip: "Cards that don't draw more cards.",
-          messages: deckInfo.totalStops.messages
+          fieldName: "card",
+          tooltip: "Cards that don't draw more cards."
         },
         {
           title: "Extra Draw",
-          value: deckInfo.totalExtraDraws.value,
+          fieldName: "card",
           tooltip: "Every +Card above 1.",
-          messages: deckInfo.totalExtraDraws.messages
         }
       ],
       [
         {
           title: "Actions",
-          value: deckInfo.totalActions.value,
-          messages: deckInfo.totalActions.messages
+          fieldName: "card"
         },
         {
           title: "Terminals",
-          value: deckInfo.totalTerminals.value,
-          tooltip: "Action cards which do not give extra actions.",
-          messages: deckInfo.totalTerminals.messages,
+          fieldName: "card",
+          tooltip: "Action cards which do not give extra actions."
           // valueStyle: { color: '#d06060' }
         },
         {
           title: "Extra Actions",
-          value: deckInfo.totalExtraActions.value,
-          messages: deckInfo.totalExtraActions.messages,
-          tooltip: "Every +Action above 1.",
+          fieldName: "card",
+          tooltip: "Every +Action above 1."
         }
       ],
       [
         {
           title: "Buys",
-          value: deckInfo.totalBuys.value,
-          messages: deckInfo.totalBuys.messages
+          fieldName: "card"
         },
         {
           title: "Money",
-          value: deckInfo.totalMoney.value,
-          messages: deckInfo.totalMoney.messages
+          fieldName: "card"
         },
         {
           title: "Money Density",
-          value: deckInfo.totalMoney.value / deckInfo.numCards.value,
+          value: deckReport.numberReports.money.value / deckReport.numberReports.card.value,
           tooltip: "Money divided by cards.",
-          messages: deckInfo.totalMoney.messages.concat(deckInfo.numCards.messages),
+          messageFieldNames: ['money', 'card'],
           precision: 2
         },
         {
           title: "Effective Money Density",
-          value: deckInfo.totalMoney.value / Math.max(1, deckInfo.totalStops.value - deckInfo.totalExtraDraws.value),
+          value: deckReport.numberReports.money.value / Math.max(1, deckReport.numberReports.stop.value - deckReport.numberReports.extraDraws.value),
           tooltip: "Money divided by effective cards (stop cards - extra draws).",
-          messages: deckInfo.totalMoney.messages.concat(deckInfo.totalStops.messages.concat(deckInfo.totalExtraDraws.messages)),
+          messageFieldNames: ['money', 'stop', 'extraDraws'],
           precision: 2
         }
       ]
@@ -105,7 +97,7 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
           fontSize={18}
           fontWeight={700}
         >
-        {deckInfo.playerName}
+        {deckReport.playerName}
         </Row>
         <Row
           marginTop={10}
@@ -115,7 +107,7 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
           {deckStatPanels}
         </Row>
         <CardContainer
-          cardNameList={deckInfo.cardNameList}
+          cardNameList={deckReport.cardNameList}
           style={{
             'backgroundColor': 'white',
             'marginTop': 10 

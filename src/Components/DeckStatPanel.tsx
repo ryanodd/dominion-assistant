@@ -5,9 +5,10 @@ import { ExclamationCircleTwoTone } from '@ant-design/icons'
 
 export interface DeckStat {
   title: string
+  fieldName?: string
   value?: number | string
   tooltip?: string
-  messages?: string[]
+  messageFieldNames?: string[] // only when fieldName isn't given
   precision?: number
   valueStyle?: {}
 }
