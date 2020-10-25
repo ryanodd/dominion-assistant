@@ -1,18 +1,29 @@
-export interface NumberReport {
+export interface NumberReportModel {
   value: number
   messages: string[]
 }
 
-export interface CardListReport {
+export interface CardListReportModel {
   cards: string[]
   messages: string[]
 }
 
-export interface DeckReport {
+export interface DeckReportModel {
   playerName: string //?
   playerInitial: string //?
   cardNameList: string[]
 
-  numberReports: {}
-  cardListReports: {}
+  doesGain: CardListReportModel
+  doesTrash: CardListReportModel
+  isAttack: CardListReportModel
+  
+  card: NumberReportModel
+  money: NumberReportModel
+  stop: NumberReportModel
+  draws: NumberReportModel
+  extraDraws: NumberReportModel
+  actions: NumberReportModel
+  terminal: NumberReportModel
+  extraActions: NumberReportModel
+  buys: NumberReportModel
 }

@@ -3,7 +3,7 @@ import { Col } from 'jsxstyle';
 import { RequestService } from '../Services/RequestService';
 import { PasteLogBox } from './PasteLogBox';
 import { Tabs } from 'antd';
-import { DeckReport } from '../types';
+import { DeckReportModel } from '../types';
 import { LogAnalyzerDeckStats } from './LogAnalyzerDeckStats';
 
 interface LogAnalyzerProps {
@@ -11,7 +11,7 @@ interface LogAnalyzerProps {
 }
 
 interface LogAnalyzerState {
-  deckReports: DeckReport[]
+  deckReportModels: DeckReportModel[]
 }
 
 const { TabPane } = Tabs;
@@ -22,7 +22,7 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
   constructor(props: Object) {
     super(props);
     this.state = {
-      deckReports: [],
+      deckReportModels: [],
     }
   }
 
@@ -32,7 +32,7 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
     .then((payload) => {
       console.log(payload)
       this.setState({
-        deckReports: payload.deckReports,
+        deckReportModels: payload.deckReports,
       });
     })
     .catch(() => {
@@ -53,7 +53,7 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
         />
         {/* <Tabs type="card">
           <TabPane tab="Deck Stats" key="1"> */}
-            <LogAnalyzerDeckStats deckReports={this.state.deckReports}/>
+            <LogAnalyzerDeckStats deckReportModels={this.state.deckReportModels}/>
           {/* </TabPane>
         </Tabs> */}
       </Col>

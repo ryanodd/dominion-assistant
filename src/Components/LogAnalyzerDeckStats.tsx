@@ -1,94 +1,19 @@
 import React, { FunctionComponent } from "react";
 import { Row, Col } from "jsxstyle";
-import { DeckReport } from "../types";
+import { DeckReportModel } from "../types";
 import { CardContainer } from "./CardContainer";
-import { DeckStat, DeckStatPanel } from "./DeckStatPanel";
+import { NumberReport } from "./NumberReport";
 
 interface LogAnalyzerDeckStatsProps {
-  deckReports: DeckReport[]
+  deckReportModels: DeckReportModel[]
   style?: {}
 };
 
-export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> = ({deckReports, style}) => {  
-  let playerDeckStats: JSX.Element[] = []
+export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> = ({deckReportModels, style}) => {  
+  let deckReportsToRender: JSX.Element[] = []
   
-  deckReports.forEach((deckReport, i) => {
-    const deckStatPanelData: DeckStat[][] = [
-      [
-        {
-          title: "Cards",
-          fieldName: "card"
-        },
-        {
-          title: "Draw",
-          fieldName: "card"
-        },
-        {
-          title: "Stop Cards",
-          fieldName: "card",
-          tooltip: "Cards that don't draw more cards."
-        },
-        {
-          title: "Extra Draw",
-          fieldName: "card",
-          tooltip: "Every +Card above 1.",
-        }
-      ],
-      [
-        {
-          title: "Actions",
-          fieldName: "card"
-        },
-        {
-          title: "Terminals",
-          fieldName: "card",
-          tooltip: "Action cards which do not give extra actions."
-          // valueStyle: { color: '#d06060' }
-        },
-        {
-          title: "Extra Actions",
-          fieldName: "card",
-          tooltip: "Every +Action above 1."
-        }
-      ],
-      [
-        {
-          title: "Buys",
-          fieldName: "card"
-        },
-        {
-          title: "Money",
-          fieldName: "card"
-        },
-        {
-          title: "Money Density",
-          value: deckReport.numberReports.money.value / deckReport.numberReports.card.value,
-          tooltip: "Money divided by cards.",
-          messageFieldNames: ['money', 'card'],
-          precision: 2
-        },
-        {
-          title: "Effective Money Density",
-          value: deckReport.numberReports.money.value / Math.max(1, deckReport.numberReports.stop.value - deckReport.numberReports.extraDraws.value),
-          tooltip: "Money divided by effective cards (stop cards - extra draws).",
-          messageFieldNames: ['money', 'stop', 'extraDraws'],
-          precision: 2
-        }
-      ]
-    ]
-    
-    let deckStatPanels: JSX.Element[] = []
-    deckStatPanelData.forEach((panelData, j) => {
-      let marginRightAmount = j === (deckStatPanelData.length - 1) ? 0 : 10
-      deckStatPanels.push(
-        <DeckStatPanel
-          key={j}
-          stats={panelData}
-          style={{marginRight: marginRightAmount}}
-        />
-      )
-    })
-    playerDeckStats.push(
+  deckReportModels.forEach((deckReportModel, i) => {
+    deckReportsToRender.push(
       <Col
         key={i}
         marginTop={20}
@@ -97,17 +22,65 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
           fontSize={18}
           fontWeight={700}
         >
-        {deckReport.playerName}
+        {deckReportModel.playerName}
         </Row>
         <Row
           marginTop={10}
           width='100%'
           flexWrap='wrap'
         >
-          {deckStatPanels}
+          <NumberReport
+            key={'card'}
+            title={'Cards'}
+            numberReportModel={deckReportModel.card}
+          />
+          <NumberReport
+            key={'draws'}
+            title={'Draw'}
+            numberReportModel={deckReportModel.draws}
+          />
+          <NumberReport
+            key={'stop'}
+            title={'Stop Cards'}
+            numberReportModel={deckReportModel.stop}
+            tooltip={"Cards that don't draw more cards."}
+          />
+          <NumberReport
+            key={'extraDraws'}
+            title={'Extra Draw'}
+            numberReportModel={deckReportModel.extraDraws}
+            tooltip={"Every +Card above 1."}
+          />
+          <NumberReport
+            key={'actions'}
+            title={'Actions'}
+            numberReportModel={deckReportModel.actions}
+          />
+          <NumberReport
+            key={'terminal'}
+            title={'Terminals'}
+            numberReportModel={deckReportModel.terminal}
+            tooltip={"Action cards which do not give extra actions."}
+          />
+          <NumberReport
+            key={'extraActions'}
+            title={'Extra Actions'}
+            numberReportModel={deckReportModel.extraActions}
+            tooltip={"Every +Action above 1."}
+          />
+          <NumberReport
+            key={'buys'}
+            title={'Buys'}
+            numberReportModel={deckReportModel.buys}
+          />
+          <NumberReport
+            key={'money'}
+            title={'Money'}
+            numberReportModel={deckReportModel.money}
+          />
         </Row>
         <CardContainer
-          cardNameList={deckReport.cardNameList}
+          cardNameList={deckReportModel.cardNameList}
           style={{
             'backgroundColor': 'white',
             'marginTop': 10 
@@ -122,7 +95,7 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
   })
   return (
     <Col style={style}>
-      {playerDeckStats}
+      {deckReportsToRender}
     </Col>
   )
 }
