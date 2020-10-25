@@ -33,50 +33,59 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
             key={'card'}
             title={'Cards'}
             numberReportModel={deckReportModel.card}
+            style={{'marginLeft': 20}}
           />
           <NumberReport
             key={'draws'}
             title={'Draw'}
             numberReportModel={deckReportModel.draws}
+            style={{'marginLeft': 20}}
           />
           <NumberReport
             key={'stop'}
             title={'Stop Cards'}
             numberReportModel={deckReportModel.stop}
             tooltip={"Cards that don't draw more cards."}
+            style={{'marginLeft': 20}}
           />
           <NumberReport
             key={'extraDraws'}
             title={'Extra Draw'}
             numberReportModel={deckReportModel.extraDraws}
             tooltip={"Every +Card above 1."}
+            style={{'marginLeft': 20}}
           />
           <NumberReport
             key={'actions'}
             title={'Actions'}
             numberReportModel={deckReportModel.actions}
+            style={{'marginLeft': 20}}
           />
           <NumberReport
             key={'terminal'}
             title={'Terminals'}
             numberReportModel={deckReportModel.terminal}
             tooltip={"Action cards which do not give extra actions."}
+            style={{'marginLeft': 20}}
           />
           <NumberReport
             key={'extraActions'}
             title={'Extra Actions'}
             numberReportModel={deckReportModel.extraActions}
             tooltip={"Every +Action above 1."}
+            style={{'marginLeft': 20}}
           />
           <NumberReport
             key={'buys'}
             title={'Buys'}
             numberReportModel={deckReportModel.buys}
+            style={{'marginLeft': 20}}
           />
           <NumberReport
             key={'money'}
             title={'Money'}
             numberReportModel={deckReportModel.money}
+            style={{'marginLeft': 20}}
           />
         </Row>
         <CardContainer
