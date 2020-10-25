@@ -6,9 +6,10 @@ interface CardProps {
   cardAssetName: string
   cardSelectedCallback?: () => any
   quantity: number
+  height?: number
 };
 
-export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Well', quantity}) => {
+export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Well', quantity, height=130}) => {
   return (
     <Col
       borderRadius={4}
@@ -25,7 +26,7 @@ export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Wel
           }}
         />
       }
-      <img height={160}  src={require('../cardAssets/200px-' + cardAssetName.replace(' ','_') + '.jpg')} alt={cardAssetName}/>
+      <img height={height}  src={require('../cardAssets/200px-' + cardAssetName.replace(' ','_') + '.jpg')} alt={cardAssetName}/>
     </Col>
   );
 }
