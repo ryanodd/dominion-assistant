@@ -4,7 +4,7 @@ export interface NumberReportModel {
 }
 
 export interface CardListReportModel {
-  cards: string[]
+  value: string[]
   messages: string[]
 }
 

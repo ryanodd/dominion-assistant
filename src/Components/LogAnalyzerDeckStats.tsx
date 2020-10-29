@@ -3,6 +3,7 @@ import { Row, Col } from "jsxstyle";
 import { DeckReportModel } from "../types";
 import { CardContainer } from "./CardContainer";
 import { NumberReport } from "./NumberReport";
+import { CardListReport } from "./CardListReport";
 
 interface LogAnalyzerDeckStatsProps {
   deckReportModels: DeckReportModel[]
@@ -23,6 +24,30 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
           fontWeight={700}
         >
         {deckReportModel.playerName}
+        </Row>
+        <Row
+          marginTop={10}
+          width='100%'
+          flexWrap='wrap'
+        >
+          <CardListReport
+            key={'gain'}
+            title={'Gain'}
+            cardListReportModel={deckReportModel.doesGain}
+            style={{'marginLeft': 20}}
+          />
+          <CardListReport
+            key={'trash'}
+            title={'Trash'}
+            cardListReportModel={deckReportModel.doesTrash}
+            style={{'marginLeft': 20}}
+          />
+          <CardListReport
+            key={'attack'}
+            title={'Attack'}
+            cardListReportModel={deckReportModel.isAttack}
+            style={{'marginLeft': 20}}
+          />
         </Row>
         <Row
           marginTop={10}
