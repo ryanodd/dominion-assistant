@@ -55,7 +55,10 @@ export const NumberReport: FunctionComponent<NumberReportProps> = (props) => {
         value={props.numberReportModel.value}
         valueStyle={props.valueStyle}
         precision={props.precision}
-        style={{...props.style}}
+        style={{
+          pointerEvents: (tooltipLineElements.length > 0 ? 'auto' : 'none'), // Disable tooltip when there's no content to show
+          ...props.style
+        }} 
         suffix={props.numberReportModel.messages?.length ? <ExclamationCircleTwoTone twoToneColor='#f07030' style={{fontSize: 20}}/> : null}
       />
     </Popover>
