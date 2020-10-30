@@ -13,17 +13,6 @@ export interface DeckReportModel {
   playerInitial: string //?
   cardNameList: string[]
 
-  doesGain: CardListReportModel
-  doesTrash: CardListReportModel
-  isAttack: CardListReportModel
-  
-  card: NumberReportModel
-  money: NumberReportModel
-  stop: NumberReportModel
-  draws: NumberReportModel
-  extraDraws: NumberReportModel
-  actions: NumberReportModel
-  terminal: NumberReportModel
-  extraActions: NumberReportModel
-  buys: NumberReportModel
+  cardListReports: Map<string, CardListReportModel>
+  numberReports: Map<string, NumberReportModel>
 }

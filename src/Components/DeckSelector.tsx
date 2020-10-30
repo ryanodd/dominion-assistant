@@ -45,17 +45,17 @@ export class DeckSelector extends React.Component<DeckSelectorProps, DeckSelecto
         alignItems='stretch'
         backgroundColor='purple'
       >
-          <AutoComplete
-            options={this.autoCompleteOptions()}
-            filterOption
-            defaultActiveFirstOption
-            onSelect={this.onSelect}
-            style={{ marginBottom: 20 }}
-          />
-          <CardContainer cardNameList={this.state.selectedCardNames} style={{marginBottom: 20}}/>
-          <Button type="primary" onClick={this.buttonPress}>
-            {"SUBMIT!"}
-          </Button>
+        <AutoComplete
+          options={this.autoCompleteOptions()}
+          filterOption
+          defaultActiveFirstOption
+          onSelect={this.onSelect}
+          style={{ marginBottom: 20 }}
+        />
+        <CardContainer cardNameList={this.state.selectedCardNames} style={{marginBottom: 20}}/>
+        <Button type="primary" onClick={this.buttonPress}>
+          {"SUBMIT!"}
+        </Button>
       </Col>
     );
   }

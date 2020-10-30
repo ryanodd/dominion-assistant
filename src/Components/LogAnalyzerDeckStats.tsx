@@ -1,9 +1,27 @@
 import React, { FunctionComponent } from "react";
 import { Row, Col } from "jsxstyle";
-import { DeckReportModel } from "../types";
+import { CardListReportModel, DeckReportModel, NumberReportModel } from "../types";
 import { CardContainer } from "./CardContainer";
 import { NumberReport } from "./NumberReport";
 import { CardListReport } from "./CardListReport";
+
+interface CardListReportData {
+  title: string
+  fieldName: string
+  tooltip?: string
+}
+
+interface CardListReportData {
+  title: string
+  fieldName: string
+  tooltip?: string
+}
+
+interface NumberReportData {
+  title: string
+  fieldName: string
+  tooltip?: string
+}
 
 interface LogAnalyzerDeckStatsProps {
   deckReportModels: DeckReportModel[]
@@ -11,8 +29,66 @@ interface LogAnalyzerDeckStatsProps {
 };
 
 export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> = ({deckReportModels, style}) => {  
-  let deckReportsToRender: JSX.Element[] = []
   
+  let cardListReportData = [
+    {
+      title: 'Gain',
+      fieldName: 'doesGain',
+    },
+    {
+      title: 'Trash',
+      fieldName: 'doesTrash',
+    },
+    {
+      title: 'Attack',
+      fieldName: 'isAttack',
+    },
+  ]
+
+  let numberReportData = [
+    {
+      title: 'Cards',
+      fieldName: 'card',
+    },
+    {
+      title: 'Draw',
+      fieldName: 'draws',
+    },
+    {
+      title: 'Stop Cards',
+      fieldName: 'stop',
+      tooltip: 'Cards that don\'t draw more cards.'
+    },
+    {
+      title: 'Extra Draw',
+      fieldName: 'extraDraws',
+      tooltip: 'Every +Card above 1.'
+    },
+    {
+      title: 'Actions',
+      fieldName: 'actions'
+    },
+    {
+      title: 'Terminals',
+      fieldName: 'terminal',
+      tooltip: 'Action cards which do not give extra actions.'
+    },
+    {
+      title: 'Extra Actions',
+      fieldName: 'extraActions',
+      tooltip: 'Every +Action above 1.'
+    },
+    {
+      title: 'Buys',
+      fieldName: 'buys',
+    },
+    {
+      title: 'Money',
+      fieldName: 'money',
+    }
+  ]
+
+  let deckReportsToRender: JSX.Element[] = []
   deckReportModels.forEach((deckReportModel, i) => {
     deckReportsToRender.push(
       <Col
@@ -30,88 +106,14 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
           width='100%'
           flexWrap='wrap'
         >
-          <CardListReport
-            key={'gain'}
-            title={'Gain'}
-            cardListReportModel={deckReportModel.doesGain}
-            style={{'marginLeft': 20}}
-          />
-          <CardListReport
-            key={'trash'}
-            title={'Trash'}
-            cardListReportModel={deckReportModel.doesTrash}
-            style={{'marginLeft': 20}}
-          />
-          <CardListReport
-            key={'attack'}
-            title={'Attack'}
-            cardListReportModel={deckReportModel.isAttack}
-            style={{'marginLeft': 20}}
-          />
+          {renderFromCardListReportData(cardListReportData, deckReportModel)}
         </Row>
         <Row
           marginTop={10}
           width='100%'
           flexWrap='wrap'
         >
-          <NumberReport
-            key={'card'}
-            title={'Cards'}
-            numberReportModel={deckReportModel.card}
-            style={{'marginLeft': 20}}
-          />
-          <NumberReport
-            key={'draws'}
-            title={'Draw'}
-            numberReportModel={deckReportModel.draws}
-            style={{'marginLeft': 20}}
-          />
-          <NumberReport
-            key={'stop'}
-            title={'Stop Cards'}
-            numberReportModel={deckReportModel.stop}
-            tooltip={"Cards that don't draw more cards."}
-            style={{'marginLeft': 20}}
-          />
-          <NumberReport
-            key={'extraDraws'}
-            title={'Extra Draw'}
-            numberReportModel={deckReportModel.extraDraws}
-            tooltip={"Every +Card above 1."}
-            style={{'marginLeft': 20}}
-          />
-          <NumberReport
-            key={'actions'}
-            title={'Actions'}
-            numberReportModel={deckReportModel.actions}
-            style={{'marginLeft': 20}}
-          />
-          <NumberReport
-            key={'terminal'}
-            title={'Terminals'}
-            numberReportModel={deckReportModel.terminal}
-            tooltip={"Action cards which do not give extra actions."}
-            style={{'marginLeft': 20}}
-          />
-          <NumberReport
-            key={'extraActions'}
-            title={'Extra Actions'}
-            numberReportModel={deckReportModel.extraActions}
-            tooltip={"Every +Action above 1."}
-            style={{'marginLeft': 20}}
-          />
-          <NumberReport
-            key={'buys'}
-            title={'Buys'}
-            numberReportModel={deckReportModel.buys}
-            style={{'marginLeft': 20}}
-          />
-          <NumberReport
-            key={'money'}
-            title={'Money'}
-            numberReportModel={deckReportModel.money}
-            style={{'marginLeft': 20}}
-          />
+          {renderFromNumberReportData(numberReportData, deckReportModel)}
         </Row>
         <CardContainer
           cardNameList={deckReportModel.cardNameList}
@@ -132,4 +134,46 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
       {deckReportsToRender}
     </Col>
   )
+}
+
+function renderFromCardListReportData(cardListReportData: CardListReportData[], deckReportModel: DeckReportModel) {
+  let reportElements: JSX.Element[] = []
+  let defaultModel = {value: [], messages: []} as CardListReportModel
+  cardListReportData.forEach((data, i) => {
+    let cardListReportMap = new Map(Object.entries(deckReportModel.cardListReports))
+    let reportModel = cardListReportMap.get(data.fieldName) || defaultModel
+    if (reportModel.value.length != 0) {
+      reportElements.push(
+        <CardListReport
+          key={i}
+          title={data['title']}
+          cardListReportModel={reportModel}
+          tooltip={data['tooltip']}
+          style={{'marginRight': 40}}
+        />
+      )
+    }
+  });
+  return reportElements;
+}
+
+function renderFromNumberReportData(numberReportData: NumberReportData[], deckReportModel: DeckReportModel) {
+  let reportElements: JSX.Element[] = []
+  let defaultModel = {value: -1, messages: []} as NumberReportModel
+  numberReportData.forEach((data, i) => {
+    let numberReportDataReportMap = new Map(Object.entries(deckReportModel.numberReports)) // need to do this because of ts?
+    let reportModel = numberReportDataReportMap.get(data.fieldName) || defaultModel
+    if (reportModel.value != -1) {
+      reportElements.push(
+        <NumberReport
+          key={i}
+          title={data['title']}
+          numberReportModel={reportModel}
+          tooltip={data['tooltip']}
+          style={{'marginRight': 40}}
+        />
+      )
+    }
+  });
+  return reportElements;
 }
