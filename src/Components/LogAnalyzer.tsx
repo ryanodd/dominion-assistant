@@ -2,9 +2,10 @@ import React, { ChangeEvent } from 'react';
 import { Col } from 'jsxstyle';
 import { RequestService } from '../Services/RequestService';
 import { PasteLogBox } from './PasteLogBox';
-import { Tabs } from 'antd';
+import { Button, Tabs } from 'antd';
 import { DeckReportModel } from '../types';
 import { LogAnalyzerDeckStats } from './LogAnalyzerDeckStats';
+import SAMPLE_LOG_1 from '../sampleLogs/sample1';
 
 interface LogAnalyzerProps {
   //code related to your props goes here
@@ -26,9 +27,9 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
     }
   }
 
-  pasteCallback = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  sendRequest = (gameLog: string) => {
     // TODO: start loading animation
-    RequestService.logPasteRequest(event.target.value)
+    RequestService.logPasteRequest(gameLog)
     .then((payload) => {
       console.log(payload)
       this.setState({
@@ -36,8 +37,16 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
       });
     })
     .catch(() => {
-      console.log("ERROR!!!!!!!!! logPasteRequest failed")
+      console.log("ERROR!!!!!!!!! Request failed")
     })
+  }
+
+  onSampleButtonClick = (event: any) => {
+    this.sendRequest(SAMPLE_LOG_1)
+  }
+
+  onPaste = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    this.sendRequest(event.target.value)
   }
 
   render(): any {
@@ -49,8 +58,20 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
         style={{'backgroundColor': '#e0e0e0'}}
       >
         <PasteLogBox
-          pasteCallback={this.pasteCallback}
+          pasteCallback={this.onPaste}
         />
+        <Button
+          type='primary'
+          onClick={this.onSampleButtonClick}
+          style={{
+            borderRadius: 5,
+            alignSelf: 'flex-end',
+            marginTop: 10,
+            width: 160
+          }}
+        >
+          ...or try an example
+        </Button>
         {/* <Tabs type="card">
           <TabPane tab="Deck Stats" key="1"> */}
             <LogAnalyzerDeckStats deckReportModels={this.state.deckReportModels}/>

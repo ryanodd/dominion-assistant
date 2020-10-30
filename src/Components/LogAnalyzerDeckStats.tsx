@@ -4,6 +4,7 @@ import { CardListReportModel, DeckReportModel, NumberReportModel } from "../type
 import { CardContainer } from "./CardContainer";
 import { NumberReport } from "./NumberReport";
 import { CardListReport } from "./CardListReport";
+import { Divider } from "antd";
 
 interface CardListReportData {
   title: string
@@ -95,12 +96,20 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
         key={i}
         marginTop={20}
       >
+        {i !== 0 && <Divider/>}
         <Row
-          fontSize={18}
+          fontSize={22}
           fontWeight={700}
         >
-        {deckReportModel.playerName}
+          {deckReportModel.playerName}
         </Row>
+        <CardContainer
+          cardNameList={deckReportModel.cardNameList}
+          style={{
+            'backgroundColor': 'white',
+            'marginTop': 10 
+          }}
+        />
         <Row
           marginTop={10}
           width='100%'
@@ -115,13 +124,6 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
         >
           {renderFromNumberReportData(numberReportData, deckReportModel)}
         </Row>
-        <CardContainer
-          cardNameList={deckReportModel.cardNameList}
-          style={{
-            'backgroundColor': 'white',
-            'marginTop': 10 
-          }}
-        />
         {/* <Row // Test row. Why does it fill the width of the column?
           backgroundColor='red'
           height={10}
