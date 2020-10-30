@@ -6,6 +6,7 @@ import { Button, Tabs } from 'antd';
 import { DeckReportModel } from '../types';
 import { LogAnalyzerDeckStats } from './LogAnalyzerDeckStats';
 import SAMPLE_LOG_1 from '../sampleLogs/sample1';
+import SAMPLE_LOG_2 from '../sampleLogs/sample2';
 
 interface LogAnalyzerProps {
   //code related to your props goes here
@@ -42,7 +43,7 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
   }
 
   onSampleButtonClick = (event: any) => {
-    this.sendRequest(SAMPLE_LOG_1)
+    this.sendRequest(SAMPLE_LOG_2)
   }
 
   onPaste = (event: ChangeEvent<HTMLTextAreaElement>) => {
