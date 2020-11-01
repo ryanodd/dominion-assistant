@@ -69,7 +69,6 @@ export const CardListReport: FunctionComponent<CardListReportProps> = (props) =>
         cardNameList={cardListReportModel.value}
         cardHeight={100}
         style={{
-          'backgroundColor': 'white',
           'marginTop': 10 
         }}
       />

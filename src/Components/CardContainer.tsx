@@ -12,7 +12,7 @@ export const CardContainer: FunctionComponent<CardContainerProps> = (props) => {
   let { cardNameList, cardHeight, style } = props;
   return (
       <Row
-        overflowX='scroll'
+        overflowX='auto'
         overflowY='hidden'
         style={style}
       >
