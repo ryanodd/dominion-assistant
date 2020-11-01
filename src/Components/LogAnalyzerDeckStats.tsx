@@ -57,7 +57,7 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
     },
     {
       title: 'Stop Cards',
-      fieldName: 'stop',
+      fieldName: 'stops',
       tooltip: 'Cards that don\'t draw more cards.'
     },
     {
@@ -86,6 +86,16 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
     {
       title: 'Money',
       fieldName: 'money',
+    },
+    {
+      title: 'Effective Stops',
+      fieldName: 'effectiveStops',
+      tooltip: 'Extra Draw - Stop Cards'
+    },
+    {
+      title: 'Effective Money Density',
+      fieldName: 'effectiveMoneyDensity',
+      tooltip: 'Money / Effective Stops'
     }
   ]
 

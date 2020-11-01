@@ -10,7 +10,7 @@ interface CardProps {
   useQuantityBadge?: boolean
 };
 
-export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Well', quantity, height=130, useQuantityBadge=false}) => {
+export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Well', quantity, height=150, useQuantityBadge=false}) => {
   const MULTI_CARD_STAGGER_HEIGHT = height * 0.12
   let extraCardElements: JSX.Element[] = []
 
@@ -18,6 +18,7 @@ export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Wel
   for (let i = 1; i < quantity; i++){
     extraCardElements.push(
       <img
+        key={i}
         height={height}
         src={require('../cardAssets/200px-' + cardAssetName.replace(' ','_') + '.jpg')}
         alt={cardAssetName}
