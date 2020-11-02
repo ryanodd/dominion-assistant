@@ -22,6 +22,7 @@ interface NumberReportData {
   title: string
   fieldName: string
   tooltip?: string
+  precision?: number
 }
 
 interface LogAnalyzerDeckStatsProps {
@@ -88,14 +89,10 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
       fieldName: 'money',
     },
     {
-      title: 'Effective Stops',
-      fieldName: 'effectiveStops',
-      tooltip: 'Extra Draw - Stop Cards'
-    },
-    {
       title: 'Effective Money Density',
       fieldName: 'effectiveMoneyDensity',
-      tooltip: 'Money / Effective Stops'
+      tooltip: 'Money / (Cards - Draw)',
+      precision: 2
     }
   ]
 
@@ -182,6 +179,7 @@ function renderFromNumberReportData(numberReportData: NumberReportData[], deckRe
           title={data['title']}
           numberReportModel={reportModel}
           tooltip={data['tooltip']}
+          precision={data['precision']}
           style={{'marginRight': 40}}
         />
       )
