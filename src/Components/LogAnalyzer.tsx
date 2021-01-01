@@ -2,11 +2,10 @@ import React, { ChangeEvent } from 'react';
 import { Col } from 'jsxstyle';
 import { RequestService } from '../Services/RequestService';
 import { PasteLogBox } from './PasteLogBox';
-import { Button, Tabs } from 'antd';
+import { Button, Spin, Tabs } from 'antd';
 import { DeckReportModel } from '../types';
 import { LogAnalyzerDeckStats } from './LogAnalyzerDeckStats';
 import SAMPLE_LOG_1 from '../sampleLogs/sample1';
-import SAMPLE_LOG_2 from '../sampleLogs/sample2';
 
 interface LogAnalyzerProps {
   //code related to your props goes here
@@ -14,6 +13,7 @@ interface LogAnalyzerProps {
 
 interface LogAnalyzerState {
   deckReportModels: DeckReportModel[]
+  requesting: boolean
 }
 
 const { TabPane } = Tabs;
@@ -25,16 +25,20 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
     super(props);
     this.state = {
       deckReportModels: [],
+      requesting: false,
     }
   }
 
   sendRequest = (gameLog: string) => {
-    // TODO: start loading animation
+    this.setState({
+      requesting: true,
+    });
     RequestService.logPasteRequest(gameLog)
     .then((payload) => {
       console.log(payload)
       this.setState({
         deckReportModels: payload.deckReports,
+        requesting: false,
       });
     })
     .catch(() => {
@@ -43,7 +47,7 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
   }
 
   onSampleButtonClick = (event: any) => {
-    this.sendRequest(SAMPLE_LOG_2)
+    this.sendRequest(SAMPLE_LOG_1)
   }
 
   onPaste = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -58,21 +62,28 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
         alignItems='stretch'
         style={{'backgroundColor': '#e0e0e0'}}
       >
-        <PasteLogBox
-          pasteCallback={this.onPaste}
-        />
-        <Button
-          type='primary'
-          onClick={this.onSampleButtonClick}
-          style={{
-            borderRadius: 5,
-            alignSelf: 'flex-end',
-            marginTop: 10,
-            width: 160
-          }}
+        <Spin
+          spinning={this.state.requesting}
+          tip='Your first try might take some time to spin up...'
         >
-          ...or try an example
-        </Button>
+          <Col>
+            <PasteLogBox
+              pasteCallback={this.onPaste}
+            />
+            <Button
+              type='primary'
+              onClick={this.onSampleButtonClick}
+              style={{
+                borderRadius: 5,
+                marginTop: 10,
+                alignSelf: 'flex-end',
+                width: 160
+              }}
+            >
+              ...or try an example
+            </Button>
+          </Col>
+        </Spin>
         {/* <Tabs type="card">
           <TabPane tab="Deck Stats" key="1"> */}
             <LogAnalyzerDeckStats deckReportModels={this.state.deckReportModels}/>
