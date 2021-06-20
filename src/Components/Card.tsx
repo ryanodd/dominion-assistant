@@ -20,7 +20,7 @@ export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Wel
       <img
         key={i}
         height={height}
-        src={require('../cardAssets/200px-' + cardAssetName.replace(' ','_') + '.jpg')}
+        src={require('../assets/cards/200px-' + cardAssetName.replace(' ','_') + '.jpg')}
         alt={cardAssetName}
         style={{
           position: 'absolute',
@@ -49,7 +49,7 @@ export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Wel
       }
       <img
         height={height}
-        src={require('../cardAssets/200px-' + cardAssetName.replace(' ','_') + '.jpg')}
+        src={require('../assets/cards/200px-' + cardAssetName.replace(' ','_') + '.jpg')}
         alt={cardAssetName}
       />
       {!useQuantityBadge && extraCardElements}
