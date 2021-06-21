@@ -15,7 +15,7 @@ export class RequestService {
     console.log(process.env)
     const config: AxiosRequestConfig = {
       method: 'post',
-      url: process.env.REACT_APP_IS_PROD ? 'https://1qyb0hokg3.execute-api.us-east-2.amazonaws.com/dominionLogAnalyzer' : 'http://localhost:3993/logParser',
+      url: 'https://1qyb0hokg3.execute-api.us-east-2.amazonaws.com/dominionLogAnalyzer',
       headers: {'Content-Type': 'application/json'},
       data: {'logStr': gameLog}
     }
