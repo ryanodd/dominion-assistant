@@ -13,6 +13,6 @@ export interface DeckReportModel {
   playerInitial: string //?
   cardNameList: string[]
 
-  cardListReports: Map<string, CardListReportModel>
-  numberReports: Map<string, NumberReportModel>
+  cardListReports?: Map<string, CardListReportModel>
+  numberReports?: Map<string, NumberReportModel>
 }

@@ -6,19 +6,13 @@ import { NumberReport } from "./NumberReport";
 import { CardListReport } from "./CardListReport";
 import { Divider } from "antd";
 
-interface CardListReportData {
+interface CardListReportEntry {
   title: string
   fieldName: string
   tooltip?: string
 }
 
-interface CardListReportData {
-  title: string
-  fieldName: string
-  tooltip?: string
-}
-
-interface NumberReportData {
+interface NumberReportEntry {
   title: string
   fieldName: string
   tooltip?: string
@@ -26,13 +20,13 @@ interface NumberReportData {
 }
 
 interface LogAnalyzerDeckStatsProps {
-  deckReportModels: DeckReportModel[]
+  deckReports: DeckReportModel[]
   style?: {}
 };
 
-export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> = ({deckReportModels, style}) => {  
+export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> = ({deckReports, style}) => {  
   
-  let cardListReportData = [
+  let cardListReportTemplate = [
     {
       title: 'Gain',
       fieldName: 'doesGain',
@@ -47,7 +41,7 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
     },
   ]
 
-  let numberReportData = [
+  let numberReportTemplate = [
     {
       title: 'Cards',
       fieldName: 'card',
@@ -97,7 +91,7 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
   ]
 
   let deckReportsToRender: JSX.Element[] = []
-  deckReportModels.forEach((deckReportModel, i) => {
+  deckReports.forEach((deckReport, i) => {
     deckReportsToRender.push(
       <Col
         key={i}
@@ -108,10 +102,10 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
           fontSize={22}
           fontWeight={700}
         >
-          {deckReportModel.playerName}
+          {deckReport.playerName}
         </Row>
         <CardContainer
-          cardNameList={deckReportModel.cardNameList}
+          cardNameList={deckReport.cardNameList}
           style={{
             'backgroundColor': 'white',
             'marginTop': 10 
@@ -122,14 +116,14 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
           width='100%'
           flexWrap='wrap'
         >
-          {renderFromCardListReportData(cardListReportData, deckReportModel)}
+          {deckReport.cardListReports && renderCardListReport(cardListReportTemplate, deckReport.cardListReports)}
         </Row>
         <Row
           marginTop={10}
           width='100%'
           flexWrap='wrap'
         >
-          {renderFromNumberReportData(numberReportData, deckReportModel)}
+          {deckReport.numberReports && renderNumberReport(numberReportTemplate, deckReport.numberReports)}
         </Row>
         {/* <Row // Test row. Why does it fill the width of the column?
           backgroundColor='red'
@@ -145,13 +139,13 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
   )
 }
 
-function renderFromCardListReportData(cardListReportData: CardListReportData[], deckReportModel: DeckReportModel) {
+function renderCardListReport(cardListReportTemplate: CardListReportEntry[], cardListReports: Map<string, CardListReportModel>) {
   let reportElements: JSX.Element[] = []
   let defaultModel = {value: [], messages: []} as CardListReportModel
-  cardListReportData.forEach((data, i) => {
-    let cardListReportMap = new Map(Object.entries(deckReportModel.cardListReports))
+  cardListReportTemplate.forEach((data, i) => {
+    let cardListReportMap = new Map(Object.entries(cardListReports))
     let reportModel = cardListReportMap.get(data.fieldName) || defaultModel
-    if (reportModel.value.length != 0) {
+    if (reportModel.value.length !== 0) {
       reportElements.push(
         <CardListReport
           key={i}
@@ -166,13 +160,13 @@ function renderFromCardListReportData(cardListReportData: CardListReportData[], 
   return reportElements;
 }
 
-function renderFromNumberReportData(numberReportData: NumberReportData[], deckReportModel: DeckReportModel) {
+function renderNumberReport(numberReportTemplate: NumberReportEntry[], numberReports: Map<string, NumberReportModel>) {
   let reportElements: JSX.Element[] = []
   let defaultModel = {value: -1, messages: []} as NumberReportModel
-  numberReportData.forEach((data, i) => {
-    let numberReportDataReportMap = new Map(Object.entries(deckReportModel.numberReports)) // need to do this because of ts?
-    let reportModel = numberReportDataReportMap.get(data.fieldName) || defaultModel
-    if (reportModel.value != -1) {
+  numberReportTemplate.forEach((data, i) => {
+    let numberReportTemplateReportMap = new Map(Object.entries(numberReports)) // need to do this because of ts?
+    let reportModel = numberReportTemplateReportMap.get(data.fieldName) || defaultModel
+    if (reportModel.value !== -1) {
       reportElements.push(
         <NumberReport
           key={i}

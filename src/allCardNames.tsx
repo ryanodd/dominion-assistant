@@ -1,4 +1,5 @@
-export default [
+// Severely Lacking, and at the moment this is just for an unused manual deckbuilder
+const allCardNames = [
   'Copper',
   'Curse',
   'Estate',
@@ -130,3 +131,5 @@ export default [
   'King\'s_Court',
   'Peddler'
 ]
+
+export default allCardNames
