@@ -1,28 +1,25 @@
-import React, { ChangeEvent } from 'react';
-import { Col } from 'jsxstyle';
-import { RequestService } from '../Services/RequestService';
-import { PasteLogBox } from './PasteLogBox';
-import { Button, Spin, Tabs } from 'antd';
-import { DeckReportModel } from '../types';
-import { LogAnalyzerDeckStats } from './LogAnalyzerDeckStats';
-import SAMPLE_LOG_1 from '../sampleLogs/sample1';
+import React, { ChangeEvent } from 'react'
+import { Col } from 'jsxstyle'
+import { RequestService } from '../Services/RequestService'
+import { PasteLogBox } from './PasteLogBox'
+import { Button, Spin, Tabs } from 'antd'
+import { DeckReportModel } from '../types'
+import { LogAnalyzerDeckStats } from './LogAnalyzerDeckStats'
+import SAMPLE_LOG_1 from '../sampleLogs/sample1'
 
-interface LogAnalyzerProps {
-  //code related to your props goes here
-}
 
 interface LogAnalyzerState {
   deckReportModels: DeckReportModel[]
   requesting: boolean
 }
 
-const { TabPane } = Tabs;
+const { TabPane } = Tabs
 
 // This component is super stateful
-export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerState> {
+export class LogAnalyzer extends React.Component<Record<string, unknown>, LogAnalyzerState> {
 
-  constructor(props: Object) {
-    super(props);
+  constructor(props: Record<string, unknown>) {
+    super(props)
     this.state = {
       deckReportModels: [],
       requesting: false,
@@ -32,18 +29,18 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
   sendRequest = (gameLog: string) => {
     this.setState({
       requesting: true,
-    });
+    })
     RequestService.logPasteRequest(gameLog)
-    .then((payload) => {
-      console.log(payload)
-      this.setState({
-        deckReportModels: payload.deckReports,
-        requesting: false,
-      });
-    })
-    .catch(() => {
-      console.log("ERROR!!!!!!!!! Request failed")
-    })
+      .then((payload) => {
+        console.log(payload)
+        this.setState({
+          deckReportModels: payload.deckReports,
+          requesting: false,
+        })
+      })
+      .catch(() => {
+        console.log('ERROR!!!!!!!!! Request failed')
+      })
   }
 
   onSampleButtonClick = (event: any) => {
@@ -86,10 +83,10 @@ export class LogAnalyzer extends React.Component<LogAnalyzerProps, LogAnalyzerSt
         </Spin>
         {/* <Tabs type="card">
           <TabPane tab="Deck Stats" key="1"> */}
-            <LogAnalyzerDeckStats deckReportModels={this.state.deckReportModels}/>
-          {/* </TabPane>
+        <LogAnalyzerDeckStats deckReports={this.state.deckReportModels}/>
+        {/* </TabPane>
         </Tabs> */}
       </Col>
-    );
+    )
   }
 }

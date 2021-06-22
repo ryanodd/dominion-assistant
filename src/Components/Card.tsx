@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from 'react';
-import { Col } from 'jsxstyle';
-import { QuantityBadge } from './QuantityBadge';
+import React, { FunctionComponent } from 'react'
+import { Col } from 'jsxstyle'
+import { QuantityBadge } from './QuantityBadge'
 
 interface CardProps {
   cardAssetName: string
@@ -8,11 +8,15 @@ interface CardProps {
   quantity: number
   height?: number
   useQuantityBadge?: boolean
-};
+}
 
-export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Well', quantity, height=150, useQuantityBadge=false}) => {
+export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Well', quantity, height=150, useQuantityBadge=false}: CardProps) => {
   const MULTI_CARD_STAGGER_HEIGHT = height * 0.12
-  let extraCardElements: JSX.Element[] = []
+  const extraCardElements: JSX.Element[] = []
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const cardImage = require('../assets/cards/200px-' + cardAssetName.replace(' ','_') + '.jpg')
+  console.log(cardImage)
 
   // Only adding 'position: absolute' cards after the 1st, since we want the width to be determined automatically
   for (let i = 1; i < quantity; i++){
@@ -20,7 +24,7 @@ export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Wel
       <img
         key={i}
         height={height}
-        src={require('../assets/cards/200px-' + cardAssetName.replace(' ','_') + '.jpg')}
+        src={cardImage.default}
         alt={cardAssetName}
         style={{
           position: 'absolute',
@@ -49,10 +53,10 @@ export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Wel
       }
       <img
         height={height}
-        src={require('../assets/cards/200px-' + cardAssetName.replace(' ','_') + '.jpg')}
+        src={cardImage.default}
         alt={cardAssetName}
       />
       {!useQuantityBadge && extraCardElements}
     </Col>
-  );
+  )
 }

@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 export default "Game #56875997, unrated.\n\
 \n\
 L starts with 7 Coppers.\n\

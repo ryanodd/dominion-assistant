@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from "react";
-import { Row, Col } from "jsxstyle";
-import { CardListReportModel, DeckReportModel, NumberReportModel } from "../types";
-import { CardContainer } from "./CardContainer";
-import { NumberReport } from "./NumberReport";
-import { CardListReport } from "./CardListReport";
-import { Divider } from "antd";
+import React, { FunctionComponent } from 'react'
+import { Row, Col } from 'jsxstyle'
+import { CardListReportModel, DeckReportModel, NumberReportModel } from '../types'
+import { CardContainer } from './CardContainer'
+import { NumberReport } from './NumberReport'
+import { CardListReport } from './CardListReport'
+import { Divider } from 'antd'
 
 interface CardListReportEntry {
   title: string
@@ -21,12 +21,12 @@ interface NumberReportEntry {
 
 interface LogAnalyzerDeckStatsProps {
   deckReports: DeckReportModel[]
-  style?: {}
-};
+  style?: Record<string, unknown>
+}
 
-export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> = ({deckReports, style}) => {  
+export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> = ({deckReports, style}: LogAnalyzerDeckStatsProps) => {  
   
-  let cardListReportTemplate = [
+  const cardListReportTemplate = [
     {
       title: 'Gain',
       fieldName: 'doesGain',
@@ -41,7 +41,7 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
     },
   ]
 
-  let numberReportTemplate = [
+  const numberReportTemplate = [
     {
       title: 'Cards',
       fieldName: 'card',
@@ -90,7 +90,7 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
     }
   ]
 
-  let deckReportsToRender: JSX.Element[] = []
+  const deckReportsToRender: JSX.Element[] = []
   deckReports.forEach((deckReport, i) => {
     deckReportsToRender.push(
       <Col
@@ -140,11 +140,11 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
 }
 
 function renderCardListReport(cardListReportTemplate: CardListReportEntry[], cardListReports: Map<string, CardListReportModel>) {
-  let reportElements: JSX.Element[] = []
-  let defaultModel = {value: [], messages: []} as CardListReportModel
+  const reportElements: JSX.Element[] = []
+  const defaultModel = {value: [], messages: []} as CardListReportModel
   cardListReportTemplate.forEach((data, i) => {
-    let cardListReportMap = new Map(Object.entries(cardListReports))
-    let reportModel = cardListReportMap.get(data.fieldName) || defaultModel
+    const cardListReportMap = new Map(Object.entries(cardListReports))
+    const reportModel = cardListReportMap.get(data.fieldName) || defaultModel
     if (reportModel.value.length !== 0) {
       reportElements.push(
         <CardListReport
@@ -156,16 +156,16 @@ function renderCardListReport(cardListReportTemplate: CardListReportEntry[], car
         />
       )
     }
-  });
-  return reportElements;
+  })
+  return reportElements
 }
 
 function renderNumberReport(numberReportTemplate: NumberReportEntry[], numberReports: Map<string, NumberReportModel>) {
-  let reportElements: JSX.Element[] = []
-  let defaultModel = {value: -1, messages: []} as NumberReportModel
+  const reportElements: JSX.Element[] = []
+  const defaultModel = {value: -1, messages: []} as NumberReportModel
   numberReportTemplate.forEach((data, i) => {
-    let numberReportTemplateReportMap = new Map(Object.entries(numberReports)) // need to do this because of ts?
-    let reportModel = numberReportTemplateReportMap.get(data.fieldName) || defaultModel
+    const numberReportTemplateReportMap = new Map(Object.entries(numberReports)) // need to do this because of ts?
+    const reportModel = numberReportTemplateReportMap.get(data.fieldName) || defaultModel
     if (reportModel.value !== -1) {
       reportElements.push(
         <NumberReport
@@ -178,6 +178,6 @@ function renderNumberReport(numberReportTemplate: NumberReportEntry[], numberRep
         />
       )
     }
-  });
-  return reportElements;
+  })
+  return reportElements
 }

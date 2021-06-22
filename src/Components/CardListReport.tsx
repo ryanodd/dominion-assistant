@@ -1,25 +1,25 @@
-import { ExclamationCircleTwoTone } from "@ant-design/icons"
-import { Popover, Statistic } from "antd"
-import { Col, Row } from "jsxstyle"
-import React, { FunctionComponent } from "react"
-import { CardListReportModel } from "../types"
-import { CardContainer } from "./CardContainer"
+import { ExclamationCircleTwoTone } from '@ant-design/icons'
+import { Popover, Statistic } from 'antd'
+import { Col, Row } from 'jsxstyle'
+import React, { FunctionComponent } from 'react'
+import { CardListReportModel } from '../types'
+import { CardContainer } from './CardContainer'
 
 export interface CardListReportProps {
     title: string
     cardListReportModel: CardListReportModel
     tooltip?: string
-    style?: {}
+    style?: Record<string, unknown>
   }
 
-export const CardListReport: FunctionComponent<CardListReportProps> = (props) => { 
-  let {title, cardListReportModel, tooltip, style} = props;
+export const CardListReport: FunctionComponent<CardListReportProps> = (props: CardListReportProps) => { 
+  const {title, cardListReportModel, tooltip, style} = props
   // This tooltip logic is the same as in NumberReport; won't combine for now
-  let tooltipLineElements: JSX.Element[] = []
+  const tooltipLineElements: JSX.Element[] = []
   if (tooltip){
     tooltipLineElements.push(
       <Row
-      key={-1}
+        key={-1}
         fontSize={16}
         fontWeight={700}
         alignItems='center'
@@ -40,7 +40,7 @@ export const CardListReport: FunctionComponent<CardListReportProps> = (props) =>
       </Row>
     )
   })
-  let tooltipElement = (
+  const tooltipElement = (
     <Col
       fontSize={14}
     >

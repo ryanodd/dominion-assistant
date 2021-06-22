@@ -1,12 +1,12 @@
-import React, { FunctionComponent } from 'react';
-import { Col, Row } from 'jsxstyle';
+import React, { FunctionComponent } from 'react'
+import { Col, Row } from 'jsxstyle'
 
 interface QuantityBadgeProps {
   quantity: number
-  style?: {}
-};
+  style?: Record<string, unknown>
+}
 
-export const QuantityBadge: FunctionComponent<QuantityBadgeProps> = ({quantity, style}) => {  
+export const QuantityBadge: FunctionComponent<QuantityBadgeProps> = ({quantity, style}: QuantityBadgeProps) => {  
   return (
     <Col
       height={24}
@@ -25,5 +25,5 @@ export const QuantityBadge: FunctionComponent<QuantityBadgeProps> = ({quantity, 
         {quantity + 'x'}
       </Row>
     </Col>
-  );
+  )
 }

@@ -1,24 +1,24 @@
-import { ExclamationCircleTwoTone } from "@ant-design/icons"
-import { Popover, Statistic } from "antd"
-import { Col, Row } from "jsxstyle"
-import React, { FunctionComponent } from "react"
-import { NumberReportModel } from "../types"
+import { ExclamationCircleTwoTone } from '@ant-design/icons'
+import { Popover, Statistic } from 'antd'
+import { Col, Row } from 'jsxstyle'
+import React, { FunctionComponent } from 'react'
+import { NumberReportModel } from '../types'
 
 export interface NumberReportProps {
     title: string
     numberReportModel: NumberReportModel
     tooltip?: string
     precision?: number
-    valueStyle?: {}
-    style?: {}
+    valueStyle?: Record<string, unknown>
+    style?: Record<string, unknown>
   }
 
-export const NumberReport: FunctionComponent<NumberReportProps> = (props) => { 
-  let tooltipLineElements: JSX.Element[] = []
+export const NumberReport: FunctionComponent<NumberReportProps> = (props: NumberReportProps) => { 
+  const tooltipLineElements: JSX.Element[] = []
   if (props.tooltip){
     tooltipLineElements.push(
       <Row
-      key={-1}
+        key={-1}
         fontSize={16}
         fontWeight={700}
         alignItems='center'
@@ -39,7 +39,7 @@ export const NumberReport: FunctionComponent<NumberReportProps> = (props) => {
       </Row>
     )
   })
-  let tooltipElement = (
+  const tooltipElement = (
     <Col
       fontSize={14}
     >
@@ -48,7 +48,7 @@ export const NumberReport: FunctionComponent<NumberReportProps> = (props) => {
   )
   return (
     <Popover
-        content={tooltipElement}
+      content={tooltipElement}
     >
       <Statistic
         title={props.title}

@@ -1,15 +1,15 @@
-import React, { FunctionComponent, ChangeEvent } from 'react';
-import { Input } from 'antd';
-import { Col } from 'jsxstyle';
+import React, { FunctionComponent, ChangeEvent } from 'react'
+import { Input } from 'antd'
+import { Col } from 'jsxstyle'
 
-const { TextArea } = Input;
+const { TextArea } = Input
 
 interface CardContainerProps {
   pasteCallback: (event: ChangeEvent<HTMLTextAreaElement>) => void,
-  style?: {}
-};
+  style?: Record<string, unknown>
+}
 
-export const PasteLogBox: FunctionComponent<CardContainerProps> = ({pasteCallback, style}) => {  
+export const PasteLogBox: FunctionComponent<CardContainerProps> = ({pasteCallback, style}: CardContainerProps) => {  
   return (
     <Col style={{...style, 'backgroundColor': 'darkgreen'}}>
       <TextArea
@@ -21,5 +21,5 @@ export const PasteLogBox: FunctionComponent<CardContainerProps> = ({pasteCallbac
         }}
       />
     </Col>
-  );
+  )
 }

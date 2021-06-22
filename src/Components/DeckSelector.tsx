@@ -1,37 +1,33 @@
-import React from 'react';
-import cardNames from '../allCardNames';
-import { Col } from 'jsxstyle';
-import { CardContainer } from './CardContainer';
-import { AutoComplete, Button } from 'antd';
-
-interface DeckSelectorProps {
-  //code related to your props goes here
-}
+import React from 'react'
+import cardNames from '../allCardNames'
+import { Col } from 'jsxstyle'
+import { CardContainer } from './CardContainer'
+import { AutoComplete, Button } from 'antd'
 
 // Eventually, this should live somewhere else (along with the button that sends it off)
 interface DeckSelectorState {
   selectedCardNames: string[];
 }
 
-export class DeckSelector extends React.Component<DeckSelectorProps, DeckSelectorState> {
+export class DeckSelector extends React.Component<Record<string, unknown>, DeckSelectorState> {
 
-  constructor(props: Object) {
-    super(props);
-    this.state = {selectedCardNames: []};
+  constructor(props: Record<string, unknown>) {
+    super(props)
+    this.state = {selectedCardNames: []}
   }
 
   autoCompleteOptions(): {value: string}[] {
-    let options: {value: string}[] = [];
+    const options: {value: string}[] = []
     cardNames.forEach(name => {
-      options.push({value: name});
-    });
-    return options;
+      options.push({value: name})
+    })
+    return options
   }
 
   onSelect = (value: string): void => {
     this.setState(prevState => {
       return {selectedCardNames: prevState.selectedCardNames.concat(value)}
-    });
+    })
   }
 
   buttonPress = (): void => {
@@ -54,9 +50,9 @@ export class DeckSelector extends React.Component<DeckSelectorProps, DeckSelecto
         />
         <CardContainer cardNameList={this.state.selectedCardNames} style={{marginBottom: 20}}/>
         <Button type="primary" onClick={this.buttonPress}>
-          {"SUBMIT!"}
+          {'SUBMIT!'}
         </Button>
       </Col>
-    );
+    )
   }
 }
