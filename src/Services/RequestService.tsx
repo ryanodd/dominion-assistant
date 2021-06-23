@@ -6,14 +6,9 @@ export interface logPasteResponsePayload {
   deck2List: string[]
 }
 
-export interface logPasteResponse {
-  payload: logPasteResponsePayload
-}
-
 export class RequestService {
 
-  static async logPasteRequest(gameLog: string): Promise<logPasteResponse | any> { // This return type is a hack
-    console.log
+  static async logPasteRequest(gameLog: string): Promise<logPasteResponsePayload | any> { // This return type is a hack
     if (window.location.hostname === 'localhost'){
       return sampleResponse
     } else {
@@ -24,7 +19,11 @@ export class RequestService {
         data: {'logStr': gameLog}
       }
       const response = await axios(config)
-      return response.data
+      if (response.status === 200){
+        return response.data
+      } else {
+        throw response.data
+      }
     }
   }
 }

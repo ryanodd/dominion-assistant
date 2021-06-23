@@ -10,7 +10,10 @@ import SAMPLE_LOG_1 from '../sampleLogs/sample1'
 
 interface LogAnalyzerState {
   deckReportModels: DeckReportModel[]
+  gameLog: string,
+  returnPayload: Record<string, unknown>
   requesting: boolean
+  error: string | null
 }
 
 const { TabPane } = Tabs
@@ -22,7 +25,10 @@ export class LogAnalyzer extends React.Component<Record<string, unknown>, LogAna
     super(props)
     this.state = {
       deckReportModels: [],
+      gameLog: '',
+      returnPayload: {},
       requesting: false,
+      error: null,
     }
   }
 
@@ -32,14 +38,19 @@ export class LogAnalyzer extends React.Component<Record<string, unknown>, LogAna
     })
     RequestService.logPasteRequest(gameLog)
       .then((payload) => {
-        console.log(payload)
         this.setState({
           deckReportModels: payload.deckReports,
+          returnPayload: payload,
           requesting: false,
+          error: null,
         })
       })
-      .catch(() => {
-        console.log('ERROR!!!!!!!!! Request failed')
+      .catch((error) => {
+        this.setState({
+          deckReportModels: [],
+          requesting: false,
+          error: error
+        })
       })
   }
 
@@ -48,6 +59,9 @@ export class LogAnalyzer extends React.Component<Record<string, unknown>, LogAna
   }
 
   onPaste = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    this.setState({
+      gameLog: event.target.value,
+    })
     this.sendRequest(event.target.value)
   }
 
@@ -61,7 +75,7 @@ export class LogAnalyzer extends React.Component<Record<string, unknown>, LogAna
       >
         <Spin
           spinning={this.state.requesting}
-          tip='Your first try might take some time to spin up...'
+          tip='Thinking...'
         >
           <Col>
             <PasteLogBox
@@ -79,13 +93,32 @@ export class LogAnalyzer extends React.Component<Record<string, unknown>, LogAna
             >
               ...or try an example
             </Button>
+            {
+              this.state.error &&
+              (
+                <p
+                  style={{
+                    color: 'red',
+                  }}
+                >
+                  {this.state.error}
+                </p>
+              )
+            }
           </Col>
         </Spin>
-        {/* <Tabs type="card">
-          <TabPane tab="Deck Stats" key="1"> */}
-        <LogAnalyzerDeckStats deckReports={this.state.deckReportModels}/>
-        {/* </TabPane>
-        </Tabs> */}
+        {
+          this.state.deckReportModels.length &&
+          (
+            <LogAnalyzerDeckStats deckReports={this.state.deckReportModels}/>
+          )
+        }
+        <p>
+          {'Something broken? '}
+          <a href={`mailto:ryanodd@gmail.com?subject=Dominion%20Issue&amp;body=Log:\n${this.state.gameLog}\nReturn:\n${this.state.returnPayload}\n\n`}>
+            {'Email me'}
+          </a>
+        </p>
       </Col>
     )
   }
