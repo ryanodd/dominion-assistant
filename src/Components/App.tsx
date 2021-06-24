@@ -1,9 +1,8 @@
 import React from 'react'
 import { Col } from 'jsxstyle'
 import 'antd/dist/antd.css'
-import { LogAnalyzer } from './LogAnalyzer'
+import LogAnalyzer from './LogAnalyzer'
 import { HeaderBar } from './HeaderBar'
-
 
 export default class App extends React.Component {
   render(): any {

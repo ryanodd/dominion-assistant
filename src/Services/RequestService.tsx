@@ -1,15 +1,17 @@
 import axios, { AxiosRequestConfig } from 'axios'
+import { Dispatch } from 'redux'
+import { SET_DECK_REPORTS, SET_ERROR, SET_REQUESTING, SET_RETURN_PAYLOAD } from '../actions'
 import sampleResponse from '../sampleResponses/sampleResponse'
-
-export interface logPasteResponsePayload {
-  deck1List: string[]
-  deck2List: string[]
-}
 
 export class RequestService {
 
-  static async logPasteRequest(gameLog: string): Promise<logPasteResponsePayload | any> { // This return type is a hack
+  static async logPasteRequest(gameLog: string, dispatch: Dispatch<any>) {
+    dispatch({type: SET_REQUESTING, payload: true})
     if (window.location.hostname === 'localhost'){
+      dispatch({type: SET_RETURN_PAYLOAD, payload: sampleResponse})
+      dispatch({type: SET_DECK_REPORTS, payload: sampleResponse.deckReports})
+      dispatch({type: SET_ERROR, payload: null})
+      dispatch({type: SET_REQUESTING, payload: false})
       return sampleResponse
     } else {
       const config: AxiosRequestConfig = {
@@ -19,11 +21,15 @@ export class RequestService {
         data: {'logStr': gameLog}
       }
       const response = await axios(config)
+
+      dispatch({type: SET_RETURN_PAYLOAD, payload: response.data})
       if (response.status === 200){
-        return response.data
+        dispatch({type: SET_DECK_REPORTS, payload: response.data.deckReports})
+        dispatch({type: SET_ERROR, payload: null})
       } else {
-        throw response.data
+        dispatch({type: SET_ERROR, payload: response.data})
       }
+      dispatch({type: SET_REQUESTING, payload: false})
     }
   }
 }
