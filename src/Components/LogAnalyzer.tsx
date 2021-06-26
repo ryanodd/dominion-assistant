@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useContext } from 'react'
-import { Col } from 'jsxstyle'
+import { Block, Col } from 'jsxstyle'
 import { RequestService } from '../Services/RequestService'
 import { PasteLogBox } from './PasteLogBox'
 import { Button, Spin } from 'antd'
@@ -24,9 +24,9 @@ const LogAnalyzer = () => {
       'mailto:ryanodd@gmail.com'
       + '?subject=Dominion%20Issue'
       + '&body='
-      + (gameLog ? `Log:\n${gameLog}\n\n` : '')
-      + (returnPayload ? `Return:\n${JSON.stringify(returnPayload)}\n\n` : '')
-      + (error ? `Error:\n${JSON.stringify(error)}\n\n` : '')
+      + (gameLog ? `Log:%0D%0A%0D%0A${gameLog}  ` : '')
+      + (returnPayload ? `Return:%0D%0A${JSON.stringify(returnPayload)}%0D%0A%0D%0A` : '')
+      + (error ? `Error:%0D%0A${JSON.stringify(error)}%0D%0A%0D%0A` : '')
     )
   }
 
@@ -50,7 +50,7 @@ const LogAnalyzer = () => {
             onClick={onSampleButtonClick}
             style={{
               borderRadius: 5,
-              marginTop: 10,
+              marginTop: 6,
               alignSelf: 'flex-end',
               width: 160
             }}
@@ -75,12 +75,20 @@ const LogAnalyzer = () => {
         !!deckReports.length &&
           <LogAnalyzerDeckStats deckReports={deckReports}/>
       }
-      <p>
-        {'Something broken? '}
-        <a href={mailReportUrl()}>
-          {'Email me'}
-        </a>
-      </p>
+      <Block
+        style={{
+          marginTop: 12,
+          marginBottom: '-1em',
+        }}
+      >
+        <p>
+          {'Something broken? '}
+          <a href={mailReportUrl()}>
+            {'Email me'}
+          </a>
+        </p>
+      </Block>
+
     </Col>
   )
 }

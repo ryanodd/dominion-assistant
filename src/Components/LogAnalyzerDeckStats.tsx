@@ -95,9 +95,8 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
     deckReportsToRender.push(
       <Col
         key={i}
-        marginTop={20}
+        marginTop={6}
       >
-        {i !== 0 && <Divider/>}
         <Row
           fontSize={22}
           fontWeight={700}
@@ -108,27 +107,29 @@ export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> 
           cardNameList={deckReport.cardNameList}
           style={{
             'backgroundColor': 'white',
-            'marginTop': 10 
+            'marginTop': 6 
           }}
         />
-        <Row
-          marginTop={10}
-          width='100%'
-          flexWrap='wrap'
-        >
-          {deckReport.cardListReports && renderCardListReport(cardListReportTemplate, deckReport.cardListReports)}
-        </Row>
-        <Row
-          marginTop={10}
-          width='100%'
-          flexWrap='wrap'
-        >
-          {deckReport.numberReports && renderNumberReport(numberReportTemplate, deckReport.numberReports)}
-        </Row>
-        {/* <Row // Test row. Why does it fill the width of the column?
-          backgroundColor='red'
-          height={10}
-        /> */}
+        {
+          deckReport.cardListReports &&
+            <Row
+              marginTop={6}
+              width='100%'
+              flexWrap='wrap'
+            >
+              {renderCardListReport(cardListReportTemplate, deckReport.cardListReports)}
+            </Row>
+        }
+        {
+          deckReport.numberReports &&
+            <Row
+              marginTop={6}
+              width='100%'
+              flexWrap='wrap'
+            >
+              { renderNumberReport(numberReportTemplate, deckReport.numberReports)}
+            </Row>
+        }
       </Col>
     )
   })

@@ -11,7 +11,7 @@ const infoTooltipContent = (
   <Col
     width={180}
   >
-    {'Council Room is a deck tracking tool for the card game \'Dominion Online\'. Just paste your game\'s log, and each player\'s stats will appear.'}
+    {'This is a deck tracking tool for the card game \'Dominion Online\'. Just paste your game\'s log, and each player\'s stats will appear.'}
   </Col>
 )
 
@@ -30,7 +30,7 @@ export const HeaderBar: FunctionComponent<HeaderBarProps> = ({style}: HeaderBarP
         fontSize={30}
         color='#E0E0E0'
       >
-        {'Council Room'}
+        {'Dominion Tracker'}
       </Col>
       <Col
         fontSize={16}
