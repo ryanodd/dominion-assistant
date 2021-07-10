@@ -28,11 +28,13 @@ export class RequestService {
           dispatch({type: SET_DECK_REPORTS, payload: response.data.deckReports})
           dispatch({type: SET_ERROR, payload: null})
         } else {
+          dispatch({type: SET_DECK_REPORTS, payload: null})
           dispatch({type: SET_ERROR, payload: response.data})
         }
       }
       catch(error) {
         console.log(JSON.stringify(error))
+        dispatch({type: SET_DECK_REPORTS, payload: null})
         dispatch({type: SET_ERROR, payload: error?.message})
       }
       dispatch({type: SET_REQUESTING, payload: false})
