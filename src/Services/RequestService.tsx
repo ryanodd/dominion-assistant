@@ -21,15 +21,21 @@ export class RequestService {
         headers: {'Content-Type': 'application/json'},
         data: {'logStr': gameLog}
       }
-      const response = await axios(config)
-
-      dispatch({type: SET_RETURN_PAYLOAD, payload: response.data})
-      if (response.status === 200){
-        dispatch({type: SET_DECK_REPORTS, payload: response.data.deckReports})
-        dispatch({type: SET_ERROR, payload: null})
-      } else {
-        dispatch({type: SET_ERROR, payload: response.data})
+      try {
+        const response = await axios(config)
+        dispatch({type: SET_RETURN_PAYLOAD, payload: response.data})
+        if (response.status === 200){
+          dispatch({type: SET_DECK_REPORTS, payload: response.data.deckReports})
+          dispatch({type: SET_ERROR, payload: null})
+        } else {
+          dispatch({type: SET_ERROR, payload: response.data})
+        }
       }
+      catch(error) {
+        console.log(error)
+        dispatch({type: SET_ERROR, payload: error})
+      }
+      
       dispatch({type: SET_REQUESTING, payload: false})
     }
   }
