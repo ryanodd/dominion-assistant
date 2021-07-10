@@ -16,7 +16,6 @@ export const Card: FunctionComponent<CardProps> = ({cardAssetName = 'Wishing_Wel
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const cardImage = require('../assets/cards/200px-' + cardAssetName.replaceAll(' ','_') + '.jpg')
-  console.log(cardImage)
 
   // Only adding 'position: absolute' cards after the 1st, since we want the width to be determined automatically
   for (let i = 1; i < quantity; i++){

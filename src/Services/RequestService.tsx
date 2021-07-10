@@ -32,10 +32,9 @@ export class RequestService {
         }
       }
       catch(error) {
-        console.log(error)
-        dispatch({type: SET_ERROR, payload: error})
+        console.log(JSON.stringify(error))
+        dispatch({type: SET_ERROR, payload: error?.message})
       }
-      
       dispatch({type: SET_REQUESTING, payload: false})
     }
   }
