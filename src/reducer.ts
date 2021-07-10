@@ -1,5 +1,5 @@
 import { DeckReportModel } from './types'
-import { SET_DECK_REPORTS, SET_ERROR, SET_REQUESTING, SET_RETURN_PAYLOAD } from './actions'
+import { SET_GAME_LOG, SET_DECK_REPORTS, SET_ERROR, SET_REQUESTING, SET_RETURN_PAYLOAD } from './actions'
 
 export type LogAnalyzerState = {
   deckReports: DeckReportModel[]
@@ -22,6 +22,9 @@ export default function appReducer(state = initialState, action: any): LogAnalyz
   switch (action.type) {
   case SET_REQUESTING: {
     return { ...state, requesting: action.payload }
+  }
+  case SET_GAME_LOG: {
+    return { ...state, gameLog: action.payload }
   }
   case SET_DECK_REPORTS: {
     return { ...state, deckReports: action.payload }
