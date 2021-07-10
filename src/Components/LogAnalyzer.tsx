@@ -24,7 +24,7 @@ const LogAnalyzer = () => {
       'mailto:ryanodd@gmail.com'
       + '?subject=Dominion%20Issue'
       + '&body='
-      + (gameLog ? `Log:%0D%0A%0D%0A${gameLog}  ` : '')
+      + (gameLog ? `Log:%0D%0A${gameLog}%0D%0A%0D%0A` : '')
       + (returnPayload ? `Return:%0D%0A${JSON.stringify(returnPayload)}%0D%0A%0D%0A` : '')
       + (error ? `Error:%0D%0A${JSON.stringify(error)}%0D%0A%0D%0A` : '')
     )
