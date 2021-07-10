@@ -83,7 +83,11 @@ const LogAnalyzer = () => {
       >
         <p>
           {'Something broken? '}
-          <a href={mailReportUrl()}>
+          <a
+            href={mailReportUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {'Email me'}
           </a>
         </p>
