@@ -12,9 +12,16 @@ const Overlay = (): ReactElement => (
     <Col
       height='100vh'
       width='100vw'
+      pointerEvents='none'
+      backgroundColor='transparent'
     >
       {'Hello! This is an overlay!'}
     </Col>
+    <style>{`
+      body {
+        background-color: transparent;
+      }
+    `}</style>
   </Provider>
 )
 
