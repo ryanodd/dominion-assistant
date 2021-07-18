@@ -4,7 +4,6 @@ import { CardListReportModel, DeckReportModel, NumberReportModel } from '../type
 import { CardContainer } from './CardContainer'
 import { NumberReport } from './NumberReport'
 import { CardListReport } from './CardListReport'
-import { Divider } from 'antd'
 
 interface CardListReportEntry {
   title: string

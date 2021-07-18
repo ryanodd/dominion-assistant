@@ -1,5 +1,5 @@
 import { ExclamationCircleTwoTone } from '@ant-design/icons'
-import { Popover, Statistic } from 'antd'
+import { Popover } from 'antd'
 import { Col, Row } from 'jsxstyle'
 import React, { FunctionComponent } from 'react'
 import { CardListReportModel } from '../types'

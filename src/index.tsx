@@ -1,17 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import store from './store'
-import App from './Components/App'
 import * as serviceWorker from './serviceWorker'
-import { Provider } from 'react-redux'
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import MainPage from './Components/MainPage'
+import Overlay from './Components/Overlay'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
+  <Router>
+    <Switch>
+      <Route path="/">
+        <MainPage />
+      </Route>
+      <Route path="/overlay">
+        <Overlay />
+      </Route>
+    </Switch>
+  </Router>,
   document.getElementById('root')
 )
 

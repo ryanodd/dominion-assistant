@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext } from 'react'
+import React, { ChangeEvent, ReactElement } from 'react'
 import { Block, Col } from 'jsxstyle'
 import { RequestService } from '../Services/RequestService'
 import { PasteLogBox } from './PasteLogBox'
@@ -7,11 +7,11 @@ import { LogAnalyzerDeckStats } from './LogAnalyzerDeckStats'
 import SAMPLE_LOG_1 from '../sampleLogs/sample1'
 import { useTypedDispatch, useTypedSelector } from '../hooks'
 
-const LogAnalyzer = () => {
+const LogAnalyzer = (): ReactElement => {
   const dispatch = useTypedDispatch()
   const { deckReports, requesting, error, gameLog, returnPayload } = useTypedSelector(state => state)
 
-  const onSampleButtonClick = (event: any) => {
+  const onSampleButtonClick = () => {
     RequestService.logPasteRequest(SAMPLE_LOG_1, dispatch)
   }
 

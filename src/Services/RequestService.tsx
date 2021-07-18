@@ -5,7 +5,7 @@ import sampleResponse from '../sampleResponses/sampleResponse'
 
 export class RequestService {
 
-  static async logPasteRequest(gameLog: string, dispatch: Dispatch<any>) {
+  static async logPasteRequest(gameLog: string, dispatch: Dispatch<any>): Promise<void> {
     dispatch({type: SET_REQUESTING, payload: true})
     dispatch({type: SET_GAME_LOG, payload: gameLog})
     if (window.location.hostname === 'localhost'){
@@ -13,7 +13,7 @@ export class RequestService {
       dispatch({type: SET_DECK_REPORTS, payload: sampleResponse.deckReports})
       dispatch({type: SET_ERROR, payload: null})
       dispatch({type: SET_REQUESTING, payload: false})
-      return sampleResponse
+      return Promise.resolve()
     } else {
       const config: AxiosRequestConfig = {
         method: 'post',
@@ -36,8 +36,10 @@ export class RequestService {
         console.log(JSON.stringify(error))
         dispatch({type: SET_DECK_REPORTS, payload: null})
         dispatch({type: SET_ERROR, payload: error?.message})
+        return Promise.reject()
       }
       dispatch({type: SET_REQUESTING, payload: false})
     }
+    return Promise.resolve()
   }
 }
