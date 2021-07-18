@@ -2,21 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import { HashRouter, Route} from 'react-router-dom'
 import MainPage from './Components/MainPage'
 import Overlay from './Components/Overlay'
 
 ReactDOM.render(
-  <Router>
-    <Switch>
-      <Route path="/">
-        <MainPage />
-      </Route>
-      <Route path="/overlay">
-        <Overlay />
-      </Route>
-    </Switch>
-  </Router>,
+  <HashRouter basename='/'>
+    <Route exact path="/" component={MainPage} />
+    <Route exact path="/overlay" component={Overlay} />
+  </HashRouter>,
   document.getElementById('root')
 )
 
