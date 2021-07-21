@@ -38,7 +38,7 @@ const Overlay = (): ReactElement => {
         overflowX='auto'
       >
         {
-          !!deckReports.length &&
+          !!deckReports?.length &&
             <LogAnalyzerDeckStats deckReports={deckReports}/>
         }
         <Col

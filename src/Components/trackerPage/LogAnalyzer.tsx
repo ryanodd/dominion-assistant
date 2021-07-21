@@ -73,7 +73,7 @@ const LogAnalyzer = (): ReactElement => {
         </Col>
       </Spin>
       {
-        !!deckReports.length &&
+        !!deckReports?.length &&
           <LogAnalyzerDeckStats deckReports={deckReports}/>
       }
       <Block

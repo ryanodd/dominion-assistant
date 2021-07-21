@@ -27,13 +27,13 @@ const logPasteRequest = async (gameLog: string, dispatch: Dispatch<any>): Promis
         dispatch({type: SET_DECK_REPORTS, payload: response.data.deckReports})
         dispatch({type: SET_ERROR, payload: null})
       } else {
-        dispatch({type: SET_DECK_REPORTS, payload: null})
+        dispatch({type: SET_DECK_REPORTS, payload: []})
         dispatch({type: SET_ERROR, payload: response.data})
       }
     }
     catch(error) {
       console.log(JSON.stringify(error))
-      dispatch({type: SET_DECK_REPORTS, payload: null})
+      dispatch({type: SET_DECK_REPORTS, payload: []})
       dispatch({type: SET_ERROR, payload: error?.message})
       return Promise.reject()
     }

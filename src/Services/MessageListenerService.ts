@@ -17,8 +17,6 @@ export class MessageListenerService {
 
   handleMessageEvent = (event: MessageEvent): void => {
     if (typeof event.data === 'string' && event.data.startsWith('Game #')) {
-      console.error('IM IN!!!!')
-      console.log(event.data)
       this.dispatch?.({type: SET_GAME_LOG, payload: event.data})
     }
   }
