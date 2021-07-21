@@ -3,14 +3,18 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
 import { HashRouter, Route} from 'react-router-dom'
-import MainPage from './Components/MainPage'
-import Overlay from './Components/Overlay'
+import MainPage from './Components/trackerPage/MainPage'
+import Overlay from './Components/overlay/Overlay'
+import { Provider } from 'react-redux'
+import store from './store'
 
 ReactDOM.render(
-  <HashRouter basename='/'>
-    <Route exact path="/" component={MainPage} />
-    <Route exact path="/overlay" component={Overlay} />
-  </HashRouter>,
+  <Provider store={store}>
+    <HashRouter basename='/'>
+      <Route exact path="/" component={MainPage} />
+      <Route exact path="/overlay" component={Overlay} />
+    </HashRouter>
+  </Provider>,
   document.getElementById('root')
 )
 

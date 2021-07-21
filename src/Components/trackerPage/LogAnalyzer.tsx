@@ -1,22 +1,22 @@
 import React, { ChangeEvent, ReactElement } from 'react'
 import { Block, Col } from 'jsxstyle'
-import { RequestService } from '../Services/RequestService'
 import { PasteLogBox } from './PasteLogBox'
 import { Button, Spin } from 'antd'
 import { LogAnalyzerDeckStats } from './LogAnalyzerDeckStats'
-import SAMPLE_LOG_1 from '../sampleLogs/sample1'
-import { useTypedDispatch, useTypedSelector } from '../hooks'
+import SAMPLE_LOG_1 from '../../sampleLogs/sample1'
+import { useTypedDispatch, useTypedSelector } from '../../hooks'
+import { throttledLogPasteRequest } from '../../api/logPasteRequest'
 
 const LogAnalyzer = (): ReactElement => {
   const dispatch = useTypedDispatch()
   const { deckReports, requesting, error, gameLog, returnPayload } = useTypedSelector(state => state)
 
   const onSampleButtonClick = () => {
-    RequestService.logPasteRequest(SAMPLE_LOG_1, dispatch)
+    throttledLogPasteRequest(SAMPLE_LOG_1, dispatch)
   }
 
   const onPaste = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    RequestService.logPasteRequest(event.target.value, dispatch)
+    throttledLogPasteRequest(event.target.value, dispatch)
   }
 
   const mailReportUrl = () => {

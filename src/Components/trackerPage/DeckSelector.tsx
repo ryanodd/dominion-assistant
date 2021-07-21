@@ -1,7 +1,7 @@
 import React from 'react'
-import cardNames from '../allCardNames'
+import cardNames from '../../allCardNames'
 import { Col } from 'jsxstyle'
-import { CardContainer } from './CardContainer'
+import { CardContainer } from '../shared/CardContainer'
 import { AutoComplete, Button } from 'antd'
 
 // Eventually, this should live somewhere else (along with the button that sends it off)

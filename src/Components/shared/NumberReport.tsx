@@ -2,7 +2,7 @@ import { ExclamationCircleTwoTone } from '@ant-design/icons'
 import { Popover, Statistic } from 'antd'
 import { Col, Row } from 'jsxstyle'
 import React, { FunctionComponent } from 'react'
-import { NumberReportModel } from '../types'
+import { NumberReportModel } from '../../types'
 
 export interface NumberReportProps {
     title: string

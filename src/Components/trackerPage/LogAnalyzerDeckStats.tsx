@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react'
 import { Row, Col } from 'jsxstyle'
-import { CardListReportModel, DeckReportModel, NumberReportModel } from '../types'
-import { CardContainer } from './CardContainer'
-import { NumberReport } from './NumberReport'
-import { CardListReport } from './CardListReport'
+import { CardListReportModel, DeckReportModel, NumberReportModel } from '../../types'
+import { CardContainer } from '../shared/CardContainer'
+import { NumberReport } from '../shared/NumberReport'
+import { CardListReport } from '../shared/CardListReport'
 
 interface CardListReportEntry {
   title: string

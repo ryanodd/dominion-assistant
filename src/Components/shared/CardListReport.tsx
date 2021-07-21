@@ -2,7 +2,7 @@ import { ExclamationCircleTwoTone } from '@ant-design/icons'
 import { Popover } from 'antd'
 import { Col, Row } from 'jsxstyle'
 import React, { FunctionComponent } from 'react'
-import { CardListReportModel } from '../types'
+import { CardListReportModel } from '../../types'
 import { CardContainer } from './CardContainer'
 
 export interface CardListReportProps {
