@@ -5,12 +5,11 @@
 * https://www.telerik.com/blogs/debouncing-and-throttling-in-javascript
 */
 
-// eslint-disable-next-line max-len
-export function createThrottledFunction<Callback = (...args: any[]) => void>(callback: Callback, delay: number): Callback {
+export function createThrottledFunction(callback, delay) {
   let timerId
   let latestArgs
   let willExecuteAfterTimeout = false
-  return (...args: Parameters<Callback>) => {
+  return (...args) => {
     latestArgs = args
     if (timerId) {
       willExecuteAfterTimeout = true
