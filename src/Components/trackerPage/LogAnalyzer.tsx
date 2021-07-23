@@ -6,10 +6,11 @@ import { LogAnalyzerDeckStats } from './LogAnalyzerDeckStats'
 import SAMPLE_LOG_1 from '../../sampleLogs/sample1'
 import { useTypedDispatch, useTypedSelector } from '../../hooks'
 import { throttledLogPasteRequest } from '../../api/logPasteRequest'
+import EmailButton from '../shared/EmailButton'
 
 const LogAnalyzer = (): ReactElement => {
   const dispatch = useTypedDispatch()
-  const { deckReports, requesting, error, gameLog, returnPayload } = useTypedSelector(state => state)
+  const { deckReports, requesting, error } = useTypedSelector(state => state)
 
   const onSampleButtonClick = () => {
     throttledLogPasteRequest(SAMPLE_LOG_1, dispatch)
@@ -17,18 +18,6 @@ const LogAnalyzer = (): ReactElement => {
 
   const onPaste = (event: ChangeEvent<HTMLTextAreaElement>) => {
     throttledLogPasteRequest(event.target.value, dispatch)
-  }
-
-  const mailReportUrl = () => {
-    return (
-      'mailto:ryanodd@gmail.com'
-      + '?subject=Dominion%20Issue'
-      + '&body='
-      + ((gameLog || returnPayload || error) ? '%0D%0A%0D%0A%2D%2D%2D%2D%2D%2D%0D%0A%0D%0A' : '')
-      + (gameLog ? `Log:%0D%0A${gameLog}%0D%0A%0D%0A` : '')
-      + (returnPayload ? `Return:%0D%0A${JSON.stringify(returnPayload)}%0D%0A%0D%0A` : '')
-      + (error ? `Error:%0D%0A${JSON.stringify(error)}%0D%0A%0D%0A` : '')
-    )
   }
 
   return (
@@ -82,16 +71,7 @@ const LogAnalyzer = (): ReactElement => {
           marginBottom: '-1em',
         }}
       >
-        <p>
-          {'Got feedback? Something broken? '}
-          <a
-            href={mailReportUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {'Email me'}
-          </a>
-        </p>
+        <EmailButton />
       </Block>
 
     </Col>

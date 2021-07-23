@@ -7,6 +7,7 @@ import { useTypedDispatch, useTypedSelector } from '../../hooks'
 import { LogAnalyzerDeckStats } from '../trackerPage/LogAnalyzerDeckStats'
 import { throttledLogPasteRequest } from '../../api/logPasteRequest'
 import { Spin } from 'antd'
+import EmailButton from '../shared/EmailButton'
 
 const messageListenerService = new MessageListenerService()
 
@@ -14,7 +15,7 @@ const messageListenerService = new MessageListenerService()
 // taking up the full viewport and being behind everything.
 // It's the only thing that should use vw/vh?
 const Overlay = (): ReactElement => {
-  const { deckReports, requesting, error, gameLog, returnPayload } = useTypedSelector(state => state)
+  const { deckReports, requesting, error, gameLog } = useTypedSelector(state => state)
   const dispatch = useTypedDispatch()
   useLayoutEffect(() => {
     messageListenerService.setup(dispatch)
@@ -27,29 +28,35 @@ const Overlay = (): ReactElement => {
   }, [gameLog])
   return (
     <>
-      <Col
-        position='fixed'
-        width='100%'
-        height='100%'
-        padding='10px'
-        backgroundColor='#aaaaaac0'
-        border='4px solid white'
-        borderRadius='8px'
-        overflowX='auto'
-      >
-        {
-          !!deckReports?.length &&
-            <LogAnalyzerDeckStats deckReports={deckReports}/>
-        }
+      <Spin spinning={requesting}>
         <Col
-          position='absolute'
-          bottom='10px'
-          left='10px'
+          position='fixed'
+          width='100%'
+          height='100%'
+          padding='10px'
+          backgroundColor='#aaaaaac0'
+          border='4px solid white'
+          borderRadius='8px'
         >
-          <Spin spinning={requesting}/>
+          {
+            error &&
+            (
+              <p
+                style={{
+                  color: 'red',
+                }}
+              >
+                {error}
+              </p>
+            )
+          }
+          {
+            !!deckReports?.length &&
+              <LogAnalyzerDeckStats deckReports={deckReports}/>
+          }
+          <EmailButton />
         </Col>
-      </Col>
-      
+      </Spin>
       <style>{`
         body {
           background-color: transparent;
