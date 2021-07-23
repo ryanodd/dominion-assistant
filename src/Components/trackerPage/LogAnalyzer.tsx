@@ -83,7 +83,7 @@ const LogAnalyzer = (): ReactElement => {
         }}
       >
         <p>
-          {'Something broken? '}
+          {'Got feedback? Something broken? '}
           <a
             href={mailReportUrl()}
             target="_blank"
