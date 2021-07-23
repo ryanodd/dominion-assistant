@@ -23,71 +23,71 @@ interface LogAnalyzerDeckStatsProps {
   style?: Record<string, unknown>
 }
 
-export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> = ({deckReports, style}: LogAnalyzerDeckStatsProps) => {  
-  
-  const cardListReportTemplate = [
-    {
-      title: 'Gain',
-      fieldName: 'doesGain',
-    },
-    {
-      title: 'Trash',
-      fieldName: 'doesTrash',
-    },
-    {
-      title: 'Attack',
-      fieldName: 'isAttack',
-    },
-  ]
+const cardListReportTemplate = [
+  {
+    title: 'Gain',
+    fieldName: 'doesGain',
+  },
+  {
+    title: 'Trash',
+    fieldName: 'doesTrash',
+  },
+  {
+    title: 'Attack',
+    fieldName: 'isAttack',
+  },
+]
 
-  const numberReportTemplate = [
-    {
-      title: 'Cards',
-      fieldName: 'card',
-    },
-    {
-      title: 'Draw',
-      fieldName: 'draws',
-    },
-    {
-      title: 'Stop Cards',
-      fieldName: 'stops',
-      tooltip: 'Cards that don\'t draw more cards.'
-    },
-    {
-      title: 'Extra Draw',
-      fieldName: 'extraDraws',
-      tooltip: 'Every +Card above 1.'
-    },
-    {
-      title: 'Actions',
-      fieldName: 'actions'
-    },
-    {
-      title: 'Terminals',
-      fieldName: 'terminal',
-      tooltip: 'Action cards which do not give extra actions.'
-    },
-    {
-      title: 'Extra Actions',
-      fieldName: 'extraActions',
-      tooltip: 'Every +Action above 1.'
-    },
-    {
-      title: 'Buys',
-      fieldName: 'buys',
-    },
-    {
-      title: 'Money',
-      fieldName: 'money',
-    },
-    {
-      title: 'Effective Money Density',
-      fieldName: 'effectiveMoneyDensity',
-      tooltip: 'Money / (Cards - Draw)',
-      precision: 2
-    }
-  ]
+const numberReportTemplate = [
+  {
+    title: 'Cards',
+    fieldName: 'card',
+  },
+  {
+    title: 'Draw',
+    fieldName: 'draws',
+  },
+  {
+    title: 'Stop Cards',
+    fieldName: 'stops',
+    tooltip: 'Cards that don\'t draw more cards.'
+  },
+  {
+    title: 'Extra Draw',
+    fieldName: 'extraDraws',
+    tooltip: 'Every +Card above 1.'
+  },
+  {
+    title: 'Actions',
+    fieldName: 'actions'
+  },
+  {
+    title: 'Terminals',
+    fieldName: 'terminal',
+    tooltip: 'Action cards which do not give extra actions.'
+  },
+  {
+    title: 'Extra Actions',
+    fieldName: 'extraActions',
+    tooltip: 'Every +Action above 1.'
+  },
+  {
+    title: 'Buys',
+    fieldName: 'buys',
+  },
+  {
+    title: 'Money',
+    fieldName: 'money',
+  },
+  {
+    title: 'Effective Money Density',
+    fieldName: 'effectiveMoneyDensity',
+    tooltip: 'Money / (Cards - Draw)',
+    precision: 2
+  }
+]
+
+export const LogAnalyzerDeckStats: FunctionComponent<LogAnalyzerDeckStatsProps> = ({deckReports, style}: LogAnalyzerDeckStatsProps) => {  
 
   const deckReportsToRender: JSX.Element[] = []
   deckReports.forEach((deckReport, i) => {

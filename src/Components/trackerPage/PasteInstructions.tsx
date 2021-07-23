@@ -26,7 +26,7 @@ const PasteInstructions = (): ReactElement => (
       <b>{'3. '}</b> {'Ctrl+C'}
     </InstructionStep>
     <InstructionStep>
-      <b>{'4. '}</b> {'Paste it here with Ctrl+V'}
+      <b>{'4. '}</b> {'Paste it below with Ctrl+V'}
     </InstructionStep>
   </InstructionRow>
 )

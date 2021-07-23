@@ -9,6 +9,7 @@ import { throttledLogPasteRequest } from '../../api/logPasteRequest'
 import EmailButton from '../shared/EmailButton'
 import PasteInstructions from './PasteInstructions'
 import styled from 'styled-components'
+import { CardList } from '../shared/CardList'
 
 const PasteInstructionsWrapper = styled.div`
   margin-bottom: 18px;
@@ -78,7 +79,15 @@ const LogAnalyzer = (): ReactElement => {
       </Spin>
       {
         !!deckReports?.length &&
-          <LogAnalyzerDeckStats deckReports={deckReports}/>
+          // <LogAnalyzerDeckStats deckReports={deckReports}/>
+          <CardList
+            cardLists={
+              deckReports.map(report => ({
+                title: report.playerName ?? report.playerInitial,
+                cardNameList: report.cardNameList,
+              }))
+            }
+          />
       }
       <Row
         marginTop='18px'

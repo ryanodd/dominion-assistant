@@ -4,10 +4,10 @@ import 'antd/dist/antd.css'
 
 import { MessageListenerService } from '../../Services/MessageListenerService'
 import { useTypedDispatch, useTypedSelector } from '../../hooks'
-import { LogAnalyzerDeckStats } from '../trackerPage/LogAnalyzerDeckStats'
 import { throttledLogPasteRequest } from '../../api/logPasteRequest'
 import { Spin } from 'antd'
 import EmailButton from '../shared/EmailButton'
+import { CardList } from '../shared/CardList'
 
 const messageListenerService = new MessageListenerService()
 
@@ -52,7 +52,15 @@ const Overlay = (): ReactElement => {
           }
           {
             !!deckReports?.length &&
-              <LogAnalyzerDeckStats deckReports={deckReports}/>
+              // <LogAnalyzerDeckStats deckReports={deckReports}/>
+              <CardList
+                cardLists={
+                  deckReports.map(report => ({
+                    title: report.playerName ?? report.playerInitial,
+                    cardNameList: report.cardNameList,
+                  }))
+                }
+              />
           }
           <EmailButton />
         </Col>
