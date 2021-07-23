@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ReactElement } from 'react'
-import { Block, Col } from 'jsxstyle'
+import { Block, Col, Row } from 'jsxstyle'
 import { PasteLogBox } from './PasteLogBox'
 import { Button, Spin } from 'antd'
 import { LogAnalyzerDeckStats } from './LogAnalyzerDeckStats'
@@ -7,6 +7,12 @@ import SAMPLE_LOG_1 from '../../sampleLogs/sample1'
 import { useTypedDispatch, useTypedSelector } from '../../hooks'
 import { throttledLogPasteRequest } from '../../api/logPasteRequest'
 import EmailButton from '../shared/EmailButton'
+import PasteInstructions from './PasteInstructions'
+import styled from 'styled-components'
+
+const PasteInstructionsWrapper = styled.div`
+  margin-bottom: 18px;
+`
 
 const LogAnalyzer = (): ReactElement => {
   const dispatch = useTypedDispatch()
@@ -22,16 +28,25 @@ const LogAnalyzer = (): ReactElement => {
 
   return (
     <Col
+      position='relative'
       padding={20}
       borderRadius={6}
       alignItems='stretch'
-      style={{'backgroundColor': '#e0e0e0'}}
+      box-shadow='0px 0px 10px 0px rgba(0,0,0,0.4)'
+      style={{'backgroundColor': '#e0e0e0d0'}}
     >
       <Spin
         spinning={requesting}
         tip='Thinking...'
       >
         <Col>
+          {
+            !deckReports?.length && (
+              <PasteInstructionsWrapper>
+                <PasteInstructions />
+              </PasteInstructionsWrapper>
+            )
+          }
           <PasteLogBox
             pasteCallback={onPaste}
           />
@@ -65,14 +80,11 @@ const LogAnalyzer = (): ReactElement => {
         !!deckReports?.length &&
           <LogAnalyzerDeckStats deckReports={deckReports}/>
       }
-      <Block
-        style={{
-          marginTop: 12,
-          marginBottom: '-1em',
-        }}
+      <Row
+        marginTop='18px'
       >
         <EmailButton />
-      </Block>
+      </Row>
 
     </Col>
   )
