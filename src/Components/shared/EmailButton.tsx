@@ -2,11 +2,16 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { useTypedSelector } from '../../hooks'
 
-const Message = styled.p`
+const Message = styled.p<{white: boolean}>`
   margin: 0;
+  color: ${props => (props.white ? 'white' : 'black')};
 `
 
-const EmailButton = (): ReactElement => {
+export type EmailButtonProps = {
+  white?: boolean
+}
+
+const EmailButton = ({white = false}: EmailButtonProps): ReactElement => {
   const { error, gameLog, returnPayload } = useTypedSelector(state => state)
 
   const mailReportUrl = () => {
@@ -22,7 +27,7 @@ const EmailButton = (): ReactElement => {
   }
 
   return (
-    <Message>
+    <Message white={white}>
       {'Got feedback? Something broken? '}
       <a
         href={mailReportUrl()}

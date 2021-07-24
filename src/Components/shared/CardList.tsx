@@ -22,15 +22,19 @@ const PlayerList = styled.div<{columnWidth: number}>`
 `
 
 const PlayerTitle = styled.h3`
+  flex-shrink: 0;
+
   margin: 0;
   font-size: 14px;
+  color: white;
+  text-shadow: 1px 1px 1px black, 1px -1px 1px black, -1px 1px 1px black, -1px -1px 1px black;
 
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: center;
   
-  background-color: #e9e9e9;
+  background-color: #1d2931;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 `
@@ -43,7 +47,7 @@ interface CardListProps {
   columnWidth?: number
 }
 
-export const CardList: FunctionComponent<CardListProps> = ({cardLists, columnWidth = 120}: CardListProps) => {
+export const CardList: FunctionComponent<CardListProps> = ({cardLists, columnWidth = 160}: CardListProps) => {
 
   // For each player, an ordered map of cardNames to quantities
   const cardQuantitiesByPlayer: {

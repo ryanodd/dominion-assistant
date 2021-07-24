@@ -5,9 +5,16 @@ import 'antd/dist/antd.css'
 import { MessageListenerService } from '../../Services/MessageListenerService'
 import { useTypedDispatch, useTypedSelector } from '../../hooks'
 import { throttledLogPasteRequest } from '../../api/logPasteRequest'
-import { Spin } from 'antd'
-import EmailButton from '../shared/EmailButton'
-import { CardList } from '../shared/CardList'
+import DecklistTab from './DecklistTab'
+import OtherTab from './OtherTab'
+import OverlayTabs, { OverlayTabType } from './OverlayTabs'
+import styled from 'styled-components'
+
+const OverlayContent = styled.div`
+  width: 100%;
+  height: auto;
+  overflow-y: auto;
+`
 
 const messageListenerService = new MessageListenerService()
 
@@ -15,7 +22,7 @@ const messageListenerService = new MessageListenerService()
 // taking up the full viewport and being behind everything.
 // It's the only thing that should use vw/vh?
 const Overlay = (): ReactElement => {
-  const { deckReports, requesting, error, gameLog } = useTypedSelector(state => state)
+  const { overlayActiveTab, error, gameLog } = useTypedSelector(state => state)
   const dispatch = useTypedDispatch()
   useLayoutEffect(() => {
     messageListenerService.setup(dispatch)
@@ -28,48 +35,44 @@ const Overlay = (): ReactElement => {
   }, [gameLog])
   return (
     <>
-      <Spin spinning={requesting}>
-        <Col
-          position='fixed'
-          width='100%'
-          height='100%'
-          padding='10px'
-          backgroundColor='#aaaaaac0'
-          border='4px solid white'
-          borderRadius='8px'
-        >
-          {
-            error &&
-            (
-              <p
-                style={{
-                  color: 'red',
-                }}
-              >
-                {error}
-              </p>
-            )
-          }
-          {
-            !!deckReports?.length &&
-              // <LogAnalyzerDeckStats deckReports={deckReports}/>
-              <CardList
-                cardLists={
-                  deckReports.map(report => ({
-                    title: report.playerName ?? report.playerInitial,
-                    cardNameList: report.cardNameList,
-                  }))
-                }
-              />
-          }
-          <EmailButton />
-        </Col>
-      </Spin>
-      <style>{`
-        body {
-          background-color: transparent;
+      <Col
+        position='fixed'
+        width='100%'
+        height='100%'
+        padding='10px'
+        backgroundColor='black'
+      >
+        <OverlayTabs />
+        {
+          error ? (
+            <p
+              style={{
+                color: 'red',
+              }}
+            >
+              {error}
+            </p>
+          ) : (
+            <OverlayContent>
+              {
+                overlayActiveTab === OverlayTabType.DECKLISTS && (
+                  <DecklistTab />
+                )
+              }
+              {
+                overlayActiveTab === OverlayTabType.OTHER && (
+                  <OtherTab />
+                )
+              }
+            </OverlayContent>
+          )
         }
-      `}</style>
+      </Col>
+      <style>{`
+      body {
+        background-color: transparent;
+      }
+    `}</style>
     </>
   )
 }

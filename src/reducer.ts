@@ -1,5 +1,6 @@
 import { DeckReportModel } from './types'
-import { SET_GAME_LOG, SET_DECK_REPORTS, SET_ERROR, SET_REQUESTING, SET_RETURN_PAYLOAD, Action } from './actions'
+import { SET_GAME_LOG, SET_DECK_REPORTS, SET_ERROR, SET_REQUESTING, SET_RETURN_PAYLOAD, Action, SET_OVERLAY_ACTIVE_TAB } from './actions'
+import { OverlayTabType } from './Components/overlay/OverlayTabs'
 
 export type LogAnalyzerState = {
   deckReports: DeckReportModel[]
@@ -7,6 +8,7 @@ export type LogAnalyzerState = {
   returnPayload: Record<string, unknown> | null
   requesting: boolean
   error: string | null
+  overlayActiveTab: OverlayTabType
 }
 
 const initialState: LogAnalyzerState = {
@@ -15,6 +17,7 @@ const initialState: LogAnalyzerState = {
   returnPayload: null,
   requesting: false,
   error: null,
+  overlayActiveTab: OverlayTabType.DECKLISTS,
 }
 
 // Use the initialState as a default value
@@ -34,6 +37,9 @@ export default function appReducer(state = initialState, action: Action): LogAna
   }
   case SET_RETURN_PAYLOAD: {
     return { ...state, returnPayload: action.payload }
+  }
+  case SET_OVERLAY_ACTIVE_TAB: {
+    return { ...state, overlayActiveTab: action.payload }
   }
   default:
     return state
