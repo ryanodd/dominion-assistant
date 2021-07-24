@@ -3,16 +3,36 @@ import styled from 'styled-components'
 import { CompactCard } from './CompactCard'
 
 const Wrapper = styled.div`
+  width: min-content;
+  overflow: hidden;
   display: flex;
+
+  > :not(:last-child) {
+    margin-right: 2px;
+  }
 `
 
-const PlayerList = styled.div`
+const PlayerList = styled.div<{columnWidth: number}>`
   display: flex;
   flex-direction: column;
+  width: ${props => (props.columnWidth)}px;
+  > :not(:last-child) {
+    margin-bottom: 1px;
+  }
 `
 
-const PlayerTitle = styled.h2`
+const PlayerTitle = styled.h3`
   margin: 0;
+  font-size: 14px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  
+  background-color: #e9e9e9;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 `
 
 interface CardListProps {
@@ -20,9 +40,10 @@ interface CardListProps {
     title: string
     cardNameList: string[]
   }[]
+  columnWidth?: number
 }
 
-export const CardList: FunctionComponent<CardListProps> = ({cardLists}: CardListProps) => {
+export const CardList: FunctionComponent<CardListProps> = ({cardLists, columnWidth = 120}: CardListProps) => {
 
   // For each player, an ordered map of cardNames to quantities
   const cardQuantitiesByPlayer: {
@@ -61,7 +82,7 @@ export const CardList: FunctionComponent<CardListProps> = ({cardLists}: CardList
     <Wrapper>
       {
         cardLists.map((_, i) => 
-          <PlayerList key={i}>
+          <PlayerList key={i} columnWidth={columnWidth}>
             <PlayerTitle>
               {cardQuantitiesByPlayer.titles[i]}
             </PlayerTitle>

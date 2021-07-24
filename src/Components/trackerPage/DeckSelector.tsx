@@ -1,5 +1,5 @@
 import React from 'react'
-import cardNames from '../../allCardNames'
+import cardNames from '../../cardData'
 import { Col } from 'jsxstyle'
 import { CardContainer } from '../shared/CardContainer'
 import { AutoComplete, Button } from 'antd'
@@ -18,7 +18,7 @@ export class DeckSelector extends React.Component<Record<string, unknown>, DeckS
 
   autoCompleteOptions(): {value: string}[] {
     const options: {value: string}[] = []
-    cardNames.forEach(name => {
+    Object.keys(cardNames).forEach(name => {
       options.push({value: name})
     })
     return options
