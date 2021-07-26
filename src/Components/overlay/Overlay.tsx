@@ -29,7 +29,7 @@ const Overlay = (): ReactElement => {
     return messageListenerService.destroy
   }, [])
   useLayoutEffect(() => {
-    if (gameLog) {
+    if (gameLog && !error) {
       throttledLogPasteRequest(gameLog, dispatch)
     }
   }, [gameLog])
